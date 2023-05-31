@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# run test
+#npm run test
+
+# valid Branch name
+.husky/valid-branch.sh

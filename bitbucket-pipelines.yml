@@ -1,0 +1,161 @@
+image: node:16
+#definiciones
+definitions:
+  steps:
+    - step: &prep-environment
+        name: Prepare environment vars
+        script:
+          - echo "export ENVIRONMENT=$ENVIRONMENT" > .envs
+          - if [ -v BITBUCKET_TAG ]; then
+              echo "export IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_TAG" >> .envs;
+            else
+              echo "export IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_COMMIT" >> .envs;
+            fi
+          - echo "PORT_IN=$PORT_IN" >> .envs
+          - echo "PORT_OUT=$PORT_OUT" >> .envs
+          - echo "REMOTE_PATH=$REMOTE_PATH" >> .envs
+          - echo "MONGO_DB_NAME=$MONGO_DB_NAME" >> .envs
+          - echo "MONGO_DB_HOST=$MONGO_DB_HOST" >> .envs
+          - echo "MONGO_DB_PORT=$MONGO_DB_PORT" >> .envs
+          - echo "MONGO_DB_USER=$MONGO_DB_USER" >> .envs
+          - echo "MONGO_DB_PWD=$MONGO_DB_PWD" >> .envs
+          - echo "MONGO_USE_PASSWORD=$MONGO_USE_PASSWORD" >> .envs
+          - echo "AWS_CLIENT_ID=$AWS_CLIENT_ID" >> .envs
+          - echo "AWS_USER_POOL_ID=$AWS_USER_POOL_ID" >> .envs
+          - echo "AWS_AWS_REGION=$AWS_AWS_REGION" >> .envs
+          - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .envs
+          - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .envs
+
+      artifacts:
+        - .envs
+
+    - step: &test
+        name: Build and Test
+        caches:
+            - node
+        artifacts:
+          - .envs
+        script:
+          - npm install
+          - npm run test
+
+    - step: &dockerize
+        name: Create Docker image
+        services: 
+          - docker
+        caches: 
+          - docker
+        artifacts:
+          - .envs
+        script:
+          - source .envs
+
+          - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+
+          - docker build -f script/environment/$ENVIRONMENT/Dockerfile -t $IMAGE_NAME .
+
+          - docker push $IMAGE_NAME
+
+    - step: &deploy
+          name: Send config files to server
+          artifacts:
+            - .envs
+          script:
+              - pipe: atlassian/rsync-deploy:0.3.2
+                variables:
+                  USER: $USER
+                  SERVER: $SERVER
+                  REMOTE_PATH: '$REMOTE_PATH'
+                  LOCAL_PATH: '${BITBUCKET_CLONE_DIR}/script'
+                  SSH_PORT: '22'
+                  EXTRA_ARGS: "--exclude=.bitbucket/ --exclude=.git/ --exclude=.github/"
+              - echo "Deployment is done...!"
+
+    - step: &execute
+          name: Deploy Service
+          artifacts:
+            - .envs
+          script:
+              - source .envs
+              - pipe: atlassian/ssh-run:0.4.0
+                variables:
+                  SSH_USER: $USER
+                  SERVER: $SERVER
+                  MODE: 'script'
+                  COMMAND: 'script/run-dockerswarm-service.sh'
+                  PORT: '22'
+                  ENV_VARS: >-
+                    REMOTE_PATH='$REMOTE_PATH'
+                    ENVIRONMENT=$ENVIRONMENT
+                    DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
+                    DOCKER_HUB_PASSWORD=$DOCKER_HUB_PASSWORD
+                    CONTAINER_NAME=sube-api-develop
+                    NETWORK=subenet
+                    ENVFILE=./$ENVIRONMENT.env
+                    USER=$USER
+                    IMAGE_NAME=$IMAGE_NAME
+                    PORT_IN=$PORT_IN
+                    PORT_OUT=$PORT_OUT
+                    DB_NAME=$MONGO_DB_NAME
+                    DB_HOST=$MONGO_DB_HOST
+                    DB_PORT=$MONGO_DB_PORT
+                    DB_USER=$MONGO_DB_USER
+                    DB_PASSWORD=$MONGO_DB_PWD
+                    AWS_CLIENT_ID=$AWS_CLIENT_ID
+                    AWS_USER_POOL_ID=$AWS_USER_POOL_ID
+                    AWS_AWS_REGION=$AWS_AWS_REGION
+                    AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                    AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+              - echo "Server done...!"
+
+    - step: &clean
+          name: Clean Docker Images
+          script:
+              - pipe: atlassian/ssh-run:0.4.0
+                variables:
+                  SSH_USER: $USER
+                  SERVER: $SERVER
+                  MODE: 'script'
+                  COMMAND: 'script/clean-docker-images.sh'
+                  PORT: '22'
+              - echo "Server done...!"
+          #after-script:
+          #    # notifications
+          #    - file_date="$(date "+%d-%m-%Y")"
+          #    - export PIPELINE_ID=${BITBUCKET_BUILD_NUMBER}
+          #    - export RELEASE_DATE=${file_date}
+          #    - echo "Sending notifications"
+          #    - cd ./build_notifications
+          #    - chmod +x slack_notify.sh
+          #    - ./slack_notify.sh $SLACK_WEBHOOK_URL $BITBUCKET_EXIT_CODE "[Bitbucket-develop]"
+
+
+
+pipelines:
+  pull-requests:
+    '**' : 
+      - step: *test
+  
+  tags:
+    'dev-*.*.*':
+      - step: 
+          <<: *prep-environment
+          name: Prepare environment
+          deployment: develop
+      - step: *test
+      - step: *dockerize
+      - step: *deploy
+      - step: *execute
+      - step: *clean
+  
+  branches:
+    test:
+      - step: 
+          <<: *prep-environment
+          name: run in develop
+          deployment: develop
+      - step: *test
+      - step: *dockerize
+      - step: *deploy
+      - step: *execute
+      - step: *clean

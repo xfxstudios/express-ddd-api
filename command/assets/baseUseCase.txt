@@ -1,0 +1,22 @@
+import {ValidProperties} from "../../../../core/shared/decorators/generalDecorators";
+import {:nameDTO} from "./:dtoname.dto";
+
+const _flow="FlowHere"
+
+export class :nameCase {
+
+  constructor() {}
+
+  @ValidProperties(_flow)
+  async execute(data: :nameDTO) {
+    return new Promise((resolve, reject) => {
+      if(data['valid_error']) {
+        reject(data['error_data'])
+        return;
+      }
+
+      resolve(true)
+
+    })
+  }
+}

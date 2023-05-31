@@ -1,0 +1,31 @@
+definitions:
+  username:
+    name: username
+    description: User's username.
+    in: formData
+    required: true
+    type: string,
+    example: 'a@a.com'
+  ApiKey:
+    name: 'api-key'
+    in: 'header'
+    required: true,
+    type: 'string'
+    enum:
+      - '1'
+      - '2'
+      - '3'
+    default: 'xxxxx'
+  login:
+      name: login
+      in: body
+      description: create user
+      schema:
+        type: object
+        required:
+          - name
+        properties:
+          name:
+            type: string
+        example:
+          name: Jhon

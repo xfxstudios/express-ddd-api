@@ -1,0 +1,35 @@
+version: '3.6'
+
+services:
+  api:
+    image: image-name
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 300M
+    env_file:
+      - env-file
+    environment:
+      - MONGO_DB_NAME=db_name
+      - MONGO_DB_HOST=db_host
+      - MONGO_DB_PORT=db_port
+      - MONGO_DB_USER=db_user
+      - MONGO_DB_PWD=db_password
+      - MONGO_USE_PASSWORD="true"
+    volumes: 
+      - app-volume:/app/public
+      - app-logs:/app/logs
+    ports:
+      - port-in:port-out
+
+volumes:
+  "app-volume":
+    external: true
+  "app-logs":
+    external: true
+
+networks:
+  default: 
+    external: true
+    name: app-network

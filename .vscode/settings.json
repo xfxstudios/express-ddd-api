@@ -1,0 +1,17 @@
+{
+  "conventionalCommits.scopes": [
+    "middleware",
+    "accounts",
+    "authentication",
+    "customers",
+    "issuers",
+    "onboarding",
+    "payment",
+    "operations",
+    "products",
+    "transactions",
+    "persona",
+    "postman",
+    "core",
+  ]
+}

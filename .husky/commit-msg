@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx --no-install commitlint --edit "$1"
+npx jira-prepare-commit-msg "$1"
+
+# valid Branch name
+.husky/valid-branch.sh

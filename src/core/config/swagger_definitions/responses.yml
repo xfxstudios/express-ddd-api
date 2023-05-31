@@ -1,0 +1,9 @@
+responses:
+  '403':
+    description: No Api Key
+    schema:
+      type: object
+  '200':
+    description: Success
+    schema:
+      type: object

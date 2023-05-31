@@ -1,0 +1,17 @@
+import {Router} from 'express'
+import {:controllernameController} from '../infrastructure/:name.controller'
+import {FlowsEnum} from '../../../core/shared/services/Enums';
+import authentication from '../../../core/middleware/validApiKey.middleware';
+
+const controller=new :controllernameController()
+const route=Router()
+const _basePath=`/${FlowsEnum.HELLO}`
+
+
+///////////////////////////////////////////
+///////////// SECURITY ROUTES /////////////
+///////////////////////////////////////////
+
+route.get(`${_basePath}`,[authentication],controller.helloApp)
+
+module.exports=route

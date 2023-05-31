@@ -1,0 +1,70 @@
+.swagger-ui .topbar { display: none }
+.swagger-ui .scheme-container {
+  background-color: rgb(206, 75, 0);
+  color: white;
+}
+.swagger-ui .info .title {
+  color: rgb(206, 75, 0);
+}
+/* .swagger-ui .info .title::before {
+  content: url('../images/docu-icon.png');
+  display: inline-block;
+} */
+.swagger-ui .auth-wrapper .unlocked {
+  background-color: rgb(134, 38, 0);
+  color: white;
+}
+.swagger-ui .auth-wrapper .locked {
+  background-color: rgb(14, 124, 73);
+  color: white;
+}
+
+.swagger-ui .authorization__btn.unlocked{
+  fill: rgb(206, 75, 0);
+}
+
+.swagger-ui .authorization__btn.locked{
+  fill: rgb(14, 124, 73);
+}
+
+.swagger-ui .opblock-tag {
+  background-color: rgb(206, 75, 0);
+  color: white;
+  font-size: 18px;
+  height: 50px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.swagger-ui .expand-operation .arrow {
+  fill: white;
+}
+
+.swagger-ui .renderedMarkdown {
+  color: white;
+  font-size: 12px;
+  font-style: italic;
+  float: right;
+}
+
+.swagger-ui .opblock-tag:hover {
+  background-color: rgb(116, 42, 0);
+  color: white;
+}
+
+.swagger-ui textarea{
+  min-height: 100px;
+}
+
+.swagger-ui .computed-url code {
+  font-weight: bold;
+  background-color: rgb(88, 25, 0);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
