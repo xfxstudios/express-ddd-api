@@ -72,3 +72,49 @@ husky - commit-msg hook exited with code 1 (error)
 
 <p>Postman collections are found in the root folder of the same name and are updated when changes arise in the endpoints if it is merited.</p>
 <p>Update url for the specified domain for the tests in the postman environment attached to this repo</p>
+
+# Modules and Use Case Creation
+<p>To create modulkos and use cases, there is a command that can be used in this way:</p>
+
+## Module Creation
+```bash
+node command.js module -n module-name
+```
+
+<p>This will create a module folder with its initial files in the folder [src/app]</p>
+
+```
+/src
+ |-/module-name
+   |-/application
+   | |-/use-case
+   |   |- module-default.case.ts
+   |   |- module-default.dto.ts
+   |-/domain
+   |-/insfrastructure
+     |- module.controller.ts
+   |-/routes
+     |- module.routes.ts
+```
+
+## Use Case Creation
+```bash
+node command.js -m module-name -n case-name
+```
+<p>This will create a case of use within the indicated module [src/module-name/application/useCase-name], if the module does not exist the command omit the creation</p>
+
+
+```
+/src
+ |-/module-name
+   |-/application
+     |-/use-case
+       |- module-default.case.ts
+       |- module-default.dto.ts
+```
+
+<p>You can see the help and commands available with the following command</p>
+
+```bash
+node command.js -h
+```
