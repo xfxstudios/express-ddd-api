@@ -28,7 +28,7 @@ export class RequestService {
 
 
     constructor() {
-        this.provider="provider"
+        this.provider="axios"
         this.url=false
         this.headers={"Contect-Type": "application/json"}
         this.body={}
@@ -109,30 +109,17 @@ export class RequestService {
 
     //Providers ||===========================>
     //Axios
-    // private _axiosProvider(config: any) {
-    //     return new Promise((resolve,reject) => {
-    //         axiosCore.request(config)
-    //             .then((response: any) => resolve(response))
-    //             .catch((e: any) => {
-    //                 if(process.env.SHOW_LOGS=='true') {
-    //                     _servLog.setError(`ERROR ${this.provider.toUpperCase()}`,e)
-    //                 }
-    //                 reject(e)
-    //             })
-    //     })
-    // }
     private _axiosProvider(config: any) {
-        try{
-            const _response = axiosCore.request(config)
-            return _response
-        }catch(e){
-            if(e.response){
-                // Error normal de axios con codigo de error distinto a 200
-                throw new HttpError(e.message, ErrorCodes.BAD_REQUEST, e.response.status)
-            }
-
-            throw new HttpError(e.message, ErrorCodes.GENERAL_ERROR,500)
-        }
+        return new Promise((resolve,reject) => {
+            axiosCore.request(config)
+                .then((response: any) => resolve(response))
+                .catch((e: any) => {
+                    if(process.env.SHOW_LOGS=='true') {
+                        _servLog.setError(`ERROR ${this.provider.toUpperCase()} | ${e.message}`,e)
+                    }
+                    reject(e)
+                })
+        })
     }
 
     private _execute(config: any) {

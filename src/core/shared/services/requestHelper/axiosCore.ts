@@ -25,15 +25,9 @@ axiosCore.interceptors.response.use(
         return response
     }, async (error:any) => {
         if(error.response){
-            if(process.env.SHOW_LOGS=='true') {
-                _servLog.setError('[ API EXTERNAL ERROR >>> ]',{status: error.response.status,data: error.response.data})
-            }
             throw new HttpError(HttpErrorMessage[error.response.status],2000, error.response.status)
         }
         if(error.request){
-            if(process.env.SHOW_LOGS=='true') {
-                _servLog.setError('[ API EXTERNAL ERROR >>> ]',{status: HttpErrorCode[error.code]??500,data: {message:error.message}})
-            }
             throw new HttpError(HttpErrorMessage[HttpErrorCode[error.code]],2000, HttpErrorCode[error.code]??500)
         }  
     }
