@@ -22,11 +22,20 @@ export default class Server {
         this.port=process.env.PORT
         this.prefix=config.apiPrefix
         this.app=express()
-        this.middleware()
-        this.routes()
-        //this.printRout()
-        this.dbConection()
-
+        this._init()
+        
+    }
+    
+    async _init(){
+        _servLog.setSteep({message: "Connecting to database...", number:1})
+        await this.dbConection()
+        _servLog.setSteep({message: "Starting Middlewares...", number:2})
+        await this.middleware()
+        _servLog.setSteep({message: "Starting routes...", number:3})
+        await this.routes()
+        _servLog.setSteep({message: "Loading server...", number:4})
+        await this.listener()
+        //await this.printRout()
     }
 
 
@@ -46,16 +55,7 @@ export default class Server {
      * Database conection
      */
     async dbConection() {
-
-        try {
-            await mongoConection()
-
-        } catch(err: any) {
-
-            throw new Error(err)
-
-        }
-
+        await mongoConection()
     }
 
 
