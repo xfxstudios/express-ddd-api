@@ -1,5 +1,13 @@
 # Sube node API
 
+## Install dependencies
+```shell
+    npm install
+    npm install @commitlint/cli @commitlint/config-conventional
+    npm install husky --save-dev
+    npx husky install
+```
+
 ## Creation process of commits and branches
 
 <p>The Husky Library has been implemented in the project to validate the process of creating commits and branches and thus follow a standard.</p>
