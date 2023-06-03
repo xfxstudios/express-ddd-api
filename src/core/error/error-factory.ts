@@ -4,7 +4,7 @@ export const createFactoryError=function(name: string) {
     constructor(
       message: string,
       public readonly code: number,
-      public readonly httpcode: number
+      public readonly httpcode: number|string
     ) {
       super(message)
       this.name=name

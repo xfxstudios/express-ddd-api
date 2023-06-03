@@ -35,6 +35,29 @@ export enum ErrorCodes {
   INVALID_API_KEY=4025,
 }
 
+export const HttpErrorMessage = {
+  200:"Request Success",
+  201:"Created resource",
+  202:"Request Accepted",
+  204:"Request with not content",
+  301:"Resource moved permanently",
+  302:"Resource Found",
+  304:"Request with not modifications",
+  400:"Consultation error, please verify the information sended",
+  401:"He has no authorization to use this resource, please contact the administrator",
+  403:"He has no authorization to use this resource, please contact the administrator",
+  404:"The requested resource is not found, please verify the info sent",
+  405:"The request of the request is not accepted, please verify",
+  408:"Sorry!, we cannot process your request at this time, please try again later",
+  409:"There are conflicts with the requested resource, please verify",
+  410:"The requested URL does not exist, please verify",
+  422:"The application cannot be processed, please verify or contact the administrator",
+  500:"Sorry!, we cannot process your request at this time, please try again later",
+  502:"Sorry!, we cannot process your request at this time, please try again later",
+  503:"Sorry!, we cannot process your request at this time, please try again later",
+  504:"Sorry!, we cannot process your request at this time, please try again later",
+};
+
 export enum HttpErrorCode {
   OK=200,
   CREATED=201,
@@ -53,6 +76,12 @@ export enum HttpErrorCode {
   INTERNAL_SERVER_ERROR=500,
   BAD_GATEWAY=502,
   SERVICE_UNAVAILABLE=503,
+
+  ECONNABORTED=504,
+  ECONNREFUSED=503,
+  ECONNRESET=502,
+  ENOTFOUND=410,
+  ETIMEDOUT=504
 };
 
 export enum FlowsEnum {
