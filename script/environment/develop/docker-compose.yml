@@ -17,6 +17,8 @@ services:
       - MONGO_DB_USER=db_user
       - MONGO_DB_PWD=db_password
       - MONGO_USE_PASSWORD="true"
+      - APP_SECURITY_PRIVATE_KEY=private_key
+      - APP_SECURITY_PUBLIC_KEY=public_key
     volumes: 
       - app-volume:/app/public
       - app-logs:/app/logs

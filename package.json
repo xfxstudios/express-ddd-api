@@ -6,11 +6,12 @@
   "scripts": {
     "test": "jest",
     "test:cov": "jest --coverage --forceExit",
-    "build": "npm run migrate && tsc && npm run postbundle && node dist/src/start.js",
+    "build": "tsc && npm run postbundle",
+    "execute":"node dist/src/start.js",
     "build-dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && tsc --incremental && npm run postbundle && clear && node dist/src/start\" ",
     "dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && clear && ts-node src/start\" ",
     "postbundle": "copyfiles src/core/config/swagger_routes/*.yml dist/ && copyfiles src/core/config/swagger_definitions/*.yml dist/  && copyfiles src/core/config/certs/*.pem dist/",
-    "migrate": "ts-node script/migration.ts"
+    "migrate": "ts-node ./migration.ts"
   },
   "keywords": [],
   "author": "",

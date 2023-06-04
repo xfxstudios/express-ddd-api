@@ -8,4 +8,17 @@ RUN npm i -F
 
 COPY . .
 
-CMD ["npm","run", "build"]
+RUN npm run build
+
+
+FROM node:18.16.0
+
+WORKDIR /app
+
+COPY ./src/core/config/certs/*.pem ./src/core/config/certs/
+COPY ./script/migration.ts ./script
+COPY ./packag*.json /app/packag*.json
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+
+CMD ["npm","run", "execute"]
