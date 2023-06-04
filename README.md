@@ -118,3 +118,19 @@ node command.js -m module-name -n case-name
 ```bash
 node command.js -h
 ```
+
+# Docker
+<p>To load a sample with Docker at your premises, please follow these steps:</p>
+
+```bash
+docker build -f script/Dockerfile-test -t apitest:local .
+```
+
+<p>Then start the machine with the next configuration</p>
+
+```bash
+docker run -d -p 3010:3001 --name apitest --network bridge apitest:local
+```
+
+<p>Note: Remember to disable the start of database in Server if you are not going to test with a database, otherwise, if database must be in the same network of the Docker instance of the API test</p>
+<p>Note: Modify the environment variables in the Docker-Test file before creating the local test image</p>

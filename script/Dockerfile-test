@@ -1,0 +1,23 @@
+FROM node:20.2.0
+
+WORKDIR /app
+
+COPY packag*.json ./
+
+RUN npm i -F
+
+ENV APP_ENV=local
+ENV TEST_LOGS="false"
+ENV PORT=3001
+ENV APIKEY="bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg=="
+ENV SHOW_LOGS=true
+
+ENV MONGO_DB_NAME=base_app_db
+ENV MONGO_DB_HOST=mongodb
+ENV MONGO_DB_PORT=27017
+ENV MONGO_DB_USER="local"
+ENV MONGO_DB_PWD="14624982"
+
+COPY . .
+
+CMD ["npm","run", "build"]
