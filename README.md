@@ -1,10 +1,10 @@
 # Sube node API
 
-## NODE VERSION FOR DEVELOP AND PRODUCTION: 20.2.0
+## NODE VERSION FOR DEVELOP AND PRODUCTION: 18.16.0
 
 ```bash
-nvm install 20.2.0
-nvm use 20.2.0
+nvm install 18.16.0
+nvm use 18.16.0
 ```
 
 
@@ -67,10 +67,11 @@ husky - commit-msg hook exited with code 1 (error)
 <p>If you try to create an commitment in a branch that does not follow the standard, this will not allow the creation of the ADS and much less a push to that branch</p>
 
 <p>To change the name of your current branch, use the following command</p>
-<p><code>git branch -m old-name new-name</code></p>
 
 ```javascript
-    git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
+# git branch -m old-name new-name
+# Example:
+git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
 ```
 
 <p>You can add the ticket number that way in the name of the branch so that it is associated with the ticket in jira</p>
@@ -141,4 +142,4 @@ docker run -d -p 3010:3001 --name apitest --network pruebaslocal apitest:local
 ```
 
 <p>Note: Remember to disable the start of database in Server if you are not going to test with a database, otherwise, if database must be in the same network of the Docker instance of the API test</p>
-<p>Note: Modify the environment variables in the Docker-Test file before creating the local test image</p>
+<p>Note: Modify the environment variables in the Docker-test file before creating the local test image</p>
