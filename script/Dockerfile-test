@@ -29,7 +29,6 @@ ENV MONGO_DB_USER=local
 ENV MONGO_DB_PWD=14624982
 
 COPY ./src/core/config/certs/*.pem ./src/core/config/certs/
-COPY ./script/migration.ts ./script
 COPY --from=build /app/packag*.json .
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist

@@ -61,22 +61,22 @@ async function migrate() {
 
   await RoleModel.deleteMany(
     {_id: {$in: _roles.map((_i) => _i._id)}}
-  ).then(async (_) => {
+  ).then(async () => {
     await RoleModel.insertMany(_roles)
   })
   await AppUserModel.deleteMany(
     {_id: {$in: _admin.map((_i) => _i._id)}}
-  ).then(async (_) => {
+  ).then(async () => {
     await AppUserModel.insertMany(_admin)
   })
   await DocumentTypeModel.deleteMany(
     {_id: {$in: _documentTypes.map((_i) => _i._id)}}
-  ).then(async (_) => {
+  ).then(async () => {
     await DocumentTypeModel.insertMany(_documentTypes)
   })
   await PaymentTypeModel.deleteMany(
     {_id: {$in: _paymentTypes.map((_i) => _i._id)}}
-  ).then(async (_) => {
+  ).then(async () => {
     await PaymentTypeModel.insertMany(_paymentTypes)
   })
 

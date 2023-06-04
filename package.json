@@ -11,7 +11,7 @@
     "build-dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && tsc --incremental && npm run postbundle && clear && node dist/src/start\" ",
     "dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && clear && ts-node src/start\" ",
     "postbundle": "copyfiles src/core/config/swagger_routes/*.yml dist/ && copyfiles src/core/config/swagger_definitions/*.yml dist/  && copyfiles src/core/config/certs/*.pem dist/",
-    "migrate": "ts-node ./migration.ts"
+    "migrate": "ts-node ./script/migration.ts"
   },
   "keywords": [],
   "author": "",
