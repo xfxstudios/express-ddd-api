@@ -132,7 +132,7 @@ node command.js -h
 <p>To load a sample with Docker at your premises, please follow these steps:</p>
 
 ```bash
-docker build -f script/Dockerfile-test -t apitest:local .
+docker build -f script/Dockerfile -t apitest:local .
 ```
 
 <p>Then start the machine with the next configuration</p>
