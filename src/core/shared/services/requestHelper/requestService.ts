@@ -1,6 +1,7 @@
 import {HttpError} from "../../../error";
 import {_servLog} from "../../dependencies";
 import {axiosCore} from "./axiosCore";
+import { IRequestService } from '../../../contracts/services_contracts/RequestService.contract';
 
 const qs=require('qs');
 
@@ -17,7 +18,7 @@ const qs=require('qs');
  * @doGet
  * @doDelete
  */
-export class RequestService {
+export class RequestService implements IRequestService {
     protected provider: string
 
     protected url: any|string
