@@ -1,6 +1,5 @@
 import {HttpError} from "../../../error";
 import {_servLog} from "../../dependencies";
-import {ErrorCodes} from "../Enums";
 import {axiosCore} from "./axiosCore";
 
 const qs=require('qs');
@@ -24,12 +23,14 @@ export class RequestService {
     protected url: any|string
     protected headers: any
     protected body: any
+    protected method: boolean|string
     protected query: any
 
 
     constructor() {
         this.provider="axios"
         this.url=false
+        this.method=false
         this.headers={"Contect-Type": "application/json"}
         this.body={}
         this.query=false
@@ -43,6 +44,11 @@ export class RequestService {
      */
     setProvider(_provider: string) {
         this.provider=_provider
+        return this
+    }
+
+    setMethod(_method:"post"|"POST"|"put"|"PUT"|"patch"|"PATCH"|"delete"|"DELETE"|"get"|"GET"|"head"|"HEAD"|"options"|"OPTIONS"){
+        this.method = _method
         return this
     }
 
@@ -130,47 +136,22 @@ export class RequestService {
 
     }
 
-    async doRequest(rType: string) {
+    async doRequest() {
         return new Promise((resolve,reject) => {
+            if(!this.method){
+                throw new HttpError("Disculpe, ha ocurrido un error, por favor, intente de nuevo mas tarde",2000,400)
+            }
             const _config={
-                method: rType,
+                method: this.method,
                 headers: this.headers,
-                url: (this.query)? this.url+this.query:this.url,
-                data: this.body
+                url: (this.query)? this.url+this.query:this.url
+            }
+            if(this.body){
+                _config['data'] = this.body
             }
             this._execute(_config)
                 .then((info) => resolve(info))
                 .catch((err) => {
-                    reject(err)
-                })
-        })
-    }//
-
-    async doGet() {
-        return new Promise((resolve,reject) => {
-            const _config={
-                method: "get",
-                headers: this.headers,
-                url: (this.query)? this.url+this.query:this.url
-            }
-            this._execute(_config)
-                .then((info) => resolve(info))
-                .catch(async (err) => {
-                    reject(err)
-                })
-        })
-    }//
-
-    async doDelete() {
-        return new Promise((resolve,reject) => {
-            const _config={
-                method: "delete",
-                headers: this.headers,
-                url: (this.query)? this.url+this.query:this.url
-            }
-            this._execute(_config)
-                .then((info) => resolve(info))
-                .catch(async (err) => {
                     reject(err)
                 })
         })

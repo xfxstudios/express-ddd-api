@@ -1,8 +1,9 @@
 import {ValidProperties} from "../../../../core/shared/decorators/generalDecorators";
-import {_servResponse} from "../../../../core/shared/dependencies";
+import {_servRequest, _servResponse} from "../../../../core/shared/dependencies";
 import {TesterrorDTO} from "./testerror.dto";
 import ErrorMessages, { ErrorCodes, HttpErrorCode} from '../../../../core/shared/services/Enums';
 import { TestErrorRepository } from '../../domain/testerror.repository';
+import {DatabaseError, HttpError} from "../../../../core/error";
 
 const _flow="TestErrorUrl"
 
@@ -19,6 +20,8 @@ export class TesterrorCase {
       if(data['valid_error']) {
         reject(data['error_data'])
       }
+
+      _servRequest.setUrl("").setHeaders({}).setBody({})
 
       this.repository.testUrl(data.getUrl())
       .then(({data}:any) => {
