@@ -138,7 +138,7 @@ docker build -f script/Dockerfile -t apitest:local .
 <p>Then start the machine with the next configuration</p>
 
 ```bash
-docker run -d -p 3010:3001 --name apitest --network pruebaslocal apitest:local
+docker run -d -p 3010:3001 --restart always --name apitest --network pruebaslocal apitest:local
 ```
 
 <p>Note: Remember to disable the start of database in Server if you are not going to test with a database, otherwise, if database must be in the same network of the Docker instance of the API test</p>

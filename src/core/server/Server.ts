@@ -27,14 +27,15 @@ export default class Server {
     }
     
     async _init(){
-        _servLog.setSteep({message: "Connecting to database...", number:1})
+        await _servLog.setSteep({message: "Connecting to database...", number:1})
         await this.dbConection()
-        _servLog.setSteep({message: "Starting Middlewares...", number:2})
+        await _servLog.setSteep({message: "Loading Middlewares...", number:2})
         await this.middleware()
-        _servLog.setSteep({message: "Starting routes...", number:3})
-        await this.routes()
-        _servLog.setSteep({message: "Loading server...", number:4})
-        await this.listener()
+        await _servLog.setSteep({message: "Loading routes...", number:3})
+        this.routes()
+        this.printRoutes()
+        await _servLog.setSteep({message: "Loading server...", number:4})
+        this.listener()
         //await this.printRout()
     }
 
@@ -80,9 +81,9 @@ export default class Server {
         _app.use(erroHandler)
     }
 
-    printRout() {
-        if(['local','dev','develop','development'].includes(process.env.APP_ENV)) {
-            _servGeneral.printRoutes(this.app)
+    async printRoutes() {
+        if(config.developEnvironments.includes(process.env.APP_ENV)) {
+            await _servGeneral.printRoutes(this.app)
         }
     }
 
