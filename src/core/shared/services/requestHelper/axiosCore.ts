@@ -9,18 +9,17 @@ export const axiosCore=axios.create({
     timeout: TIMEOUT_IN_MILLIS,
 }); // end of axiosCore
 
-axiosCore.interceptors.request.use((config: any) => {
+axiosCore.interceptors.request.use(async (config: any) => {
     if(process.env.SHOW_LOGS=='true') {
-        _servLog.setDebug('[ API EXTERNAL REQUEST >>> ]',config)
+        await _servLog.setDebug('[ API EXTERNAL REQUEST >>> ]',config)
     }
     return config
 })
 
 
-axiosCore.interceptors.response.use(
-    (response) => {
+axiosCore.interceptors.response.use(async (response) => {
         if(process.env.SHOW_LOGS=='true') {
-            _servLog.setDebug('[ API EXTERNAL RESPONSE >>> ]',{status: response.status,data: response.data})
+            await _servLog.setDebug('[ API EXTERNAL RESPONSE >>> ]',{status: response.status,data: response.data})
         }
         return response
     }, async (error:any) => {

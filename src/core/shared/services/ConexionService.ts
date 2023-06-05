@@ -22,18 +22,15 @@ export const mongoConection=async () => {
         serverSelectionTimeoutMS:10000
     }
 
-    mongoose.connection.on('connected', () =>{
-        _servLog.setSuccess("Database Connection Success")
-    })
-    mongoose.connection.on('error', (error:any) =>{
-        console.log(error.message)
-    })
+    mongoose.connection.on('connected', () =>{})
+    mongoose.connection.on('error', (error:any) =>{})
 
 
     try {
         await mongoose.connect(_uri,_options)
+        return true;
     } catch(err) {
-        _servLog.setError("Mongo Connection Fail",err)
+        await _servLog.setError("Mongo Connection Fail",err)
         throw new DatabaseError(err.message, err.code, 500)
     }
 }

@@ -1,5 +1,5 @@
 export const config: any={
-    apiPrefix: '/api/',
+    apiPrefix: '/api/v1/',
     dbDialect: 'mongo',
     enableApyKey: true,
     appStage: 'default',

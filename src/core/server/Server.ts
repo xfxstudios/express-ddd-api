@@ -6,6 +6,7 @@ import {mongoConection} from '../shared/services/ConexionService';
 import {errorNotFoundHandler} from '../middleware/errorNotFoundHandler';
 import {erroHandler} from '../middleware/errorHandler';
 import {_servGeneral,_servLog} from '../shared/dependencies';
+import { Listr } from 'listr2'
 const path=require('path');
 const fs=require('fs');
 
@@ -27,16 +28,31 @@ export default class Server {
     }
     
     async _init(){
-        await _servLog.setSteep({message: "Connecting to database...", number:1})
-        await this.dbConection()
-        await _servLog.setSteep({message: "Loading Middlewares...", number:2})
-        await this.middleware()
-        await _servLog.setSteep({message: "Loading routes...", number:3})
-        this.routes()
-        this.printRoutes()
-        await _servLog.setSteep({message: "Loading server...", number:4})
-        this.listener()
-        //await this.printRout()
+
+        const tasks = new Listr<any>([
+                {
+                    title: 'Connecting to Database',
+                    task: async (): Promise<void> => this.dbConection()
+                },
+                {
+                    title: 'Loading Middlewares',
+                    task: async (): Promise<void> =>  this.middleware()
+                },
+                {
+                    title: 'Loading Routes',
+                    task: async (): Promise<void> =>  this.routes()
+                },
+                {
+                    title: 'Printings Routes',
+                    task: async (): Promise<void> =>  this.printRoutes()
+                },
+                {
+                    title: 'Loading Server',
+                    task: async (): Promise<void> =>  this.listener()
+                },
+        ],{exitOnError: true})
+
+        await tasks.run()
     }
 
 
@@ -91,7 +107,7 @@ export default class Server {
      * Listener
      */
     listener() {
-        this.app.listen(this.port,() => _servLog.setSuccess(`Server listen on port ${this.port}`))
+        this.app.listen(this.port,() => {})
     }
 
 }
