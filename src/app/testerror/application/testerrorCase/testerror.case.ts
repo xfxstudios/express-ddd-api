@@ -3,7 +3,7 @@ import {_servRequest, _servResponse} from "../../../../core/shared/dependencies"
 import {TesterrorDTO} from "./testerror.dto";
 import ErrorMessages, { ErrorCodes, HttpErrorCode} from '../../../../core/shared/services/Enums';
 import { TestErrorRepository } from '../../domain/testerror.repository';
-import {DatabaseError, HttpError} from "../../../../core/error";
+import { IResponse } from '../../../../core/shared/services/ResponseService';
 
 const _flow="TestErrorUrl"
 
@@ -14,7 +14,7 @@ export class TesterrorCase {
   ) {}
 
   @ValidProperties(_flow)
-  async execute(data: TesterrorDTO) {
+  async execute(data: TesterrorDTO):Promise<IResponse> {
 
     return new Promise((resolve, reject) => {
       if(data['valid_error']) {

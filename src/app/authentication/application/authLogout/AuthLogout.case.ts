@@ -3,6 +3,7 @@ import {ValidProperties} from '../../../../core/shared/decorators/generalDecorat
 import ErrorMessages,{FlowsEnum,ErrorCodes} from '../../../../core/shared/services/Enums';
 import {AuthRepository} from '../../../../core/shared/repositories/auth.repository';
 import {_servLog,_servResponse} from '../../../../core/shared/dependencies';
+import { IResponse } from '../../../../core/shared/services/ResponseService';
 
 const _flow=FlowsEnum.AUTHENTICATION
 
@@ -13,7 +14,7 @@ export class AuthLogoutCase {
   ) {}
 
   @ValidProperties(_flow)
-  async execute(data: AuthLogoutDTO) {
+  async execute(data: AuthLogoutDTO):Promise<IResponse> {
     return new Promise((resolve,reject) => {
       if(data['valid_error']) {
         reject(data['error_data'])

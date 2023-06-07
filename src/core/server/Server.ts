@@ -61,10 +61,13 @@ export default class Server {
     */
     async middleware() {
         this.app.use(cors())
+        this.app.set('view engine', 'pug')
+        this.app.set('views', path.resolve('src/views'))
         this.app.use(express.json({limit: '50mb'}))
         this.app.use(express.static('public'))
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(IncommingLog)
+        this.app.use('/', (req, res) => res.render('index'))
     }
 
 
