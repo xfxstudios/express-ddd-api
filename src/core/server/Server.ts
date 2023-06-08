@@ -13,6 +13,8 @@ const fs=require('fs');
 const swaggerJsdoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express')
 
+console.time('Tiempo de carga de la API');
+
 export default class Server {
 
     protected app: Application
@@ -110,6 +112,7 @@ export default class Server {
      * Listener
      */
     listener() {
+        console.timeEnd('Tiempo de carga de la API');
         this.app.listen(this.port,() => {})
     }
 
