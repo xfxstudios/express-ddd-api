@@ -69,7 +69,6 @@ export default class Server {
         this.app.use(express.static('public'))
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(IncommingLog)
-        this.app.use('/', (req, res) => res.render('index'))
     }
 
 
@@ -98,6 +97,7 @@ export default class Server {
                 _app.use(_prefix,require(`${_actual}/${file}`))
             })
         })
+        _app.use('/', (req, res) => res.render('index'))
         _app.use(errorNotFoundHandler)
         _app.use(erroHandler)
     }
