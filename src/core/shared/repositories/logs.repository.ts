@@ -48,34 +48,36 @@ export class LogsRepository {
           if(!err){
             let _line:any = data.toString().split('\n')
 
-            const expresionRegular = /\[(.*?)\]/
-            const expresionContent = /:\s*(.*)/
+            // extrae todo lo que esta dentro de corchetes
+            //const expresionRegular = /\[(.*?)\]/
+            //extrae todo lo que este luego de los 2 puntos
+            //const expresionContent = /:\s*(.*)/
 
             _line.forEach((_l:any) => {
 
               let _object:any = {}
               
-              let _heads:any = _l.split(' - ')
+              let _heads:any = _l.split('|')
 
               //Extraemos la fecha
-              let _d = expresionRegular.exec(_heads[0]??"[]")
-              let _date = (_d)?_d[1]:null
-              if(_date) _object['date'] = _date
+              //let _d = expresionRegular.exec(_heads[0]??"[]")
+              let _date = (_heads)?_heads[0]:null
+              if(_date) _object['date'] = _date.trim()
               
               //Extraemos el tipo de log
-              let _t = expresionRegular.exec(_heads[1]??"[]")
-              let _type = (_t) ? _t[1]:null
-              if(_type) _object['type'] = _type
+              // let _t = expresionRegular.exec(_heads[1]??"[]")
+              let _type = (_heads) ? _heads[1]:null
+              if(_type) _object['type'] = _type.trim()
 
-              //Extraemos el flow
-              let _b = expresionRegular.exec(_heads[2]??"[]")
-              let _body = (_b) ? _b[1]:null
-              if(_body) _object['flow'] = _body
+              // //Extraemos el flow
+              // let _b = expresionRegular.exec(_heads[2]??"[]")
+              let _body = (_heads) ? _heads[2]:null
+              if(_body) _object['message'] = _body.trim()
               
-              //Extraemos la data si existe
-              let _c = expresionContent.exec(_heads[2]??"[]")
-              let _content = (_c) ? _c[1]:null
-              if(_content) _object['content'] = JSON.parse(_content)
+              // //Extraemos la data si existe
+              // let _c = expresionContent.exec(_heads[2]??"[]")
+              let _content = (_heads) ? _heads[3]:null
+              if(_content) _object['content'] = JSON.parse(_content.trim())
               
               _out.push(_object)
 
