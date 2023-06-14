@@ -1,7 +1,8 @@
 export const config: any={
     apiPrefix: '/api/v1/',
-    dbDialect: 'mongo',
-    enableApyKey: true,
+    usingMongo: process.env.USING_MONGO??false,
+    usingMysql: process.env.USING_MYSQL??false,
+    enableApyKey: process.env.API_ENABLE??true,
     appStage: 'default',
     apiKey: process.env.APIKEY,
     developEnvironments:['develop','dev','qa','local'],

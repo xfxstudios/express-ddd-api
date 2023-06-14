@@ -1,12 +1,13 @@
 import cors from 'cors'
 import express,{Application} from 'express'
-import {config} from '../config/appConfig'
+
 import {IncommingLog} from '../middleware/incommingLog'
 import {mongoConection} from '../shared/services/ConexionService';
 import {errorNotFoundHandler} from '../middleware/errorNotFoundHandler';
 import {erroHandler} from '../middleware/errorHandler';
 import {_servGeneral,_servLog} from '../shared/dependencies';
 import { Listr } from 'listr2'
+import { config } from './../config/appConfig';
 const path=require('path');
 const fs=require('fs');
 
@@ -76,7 +77,10 @@ export default class Server {
      * Database conection
      */
     async dbConection() {
-        await mongoConection()
+        if(config.usingMongo)
+            await mongoConection()
+        //if(config.usingMysql)
+        //    await mongoConection()
     }
 
 
