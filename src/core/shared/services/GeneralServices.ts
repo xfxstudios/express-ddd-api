@@ -254,17 +254,7 @@ export class GeneralService {
     }
 
 
-    async tokenDecode(token: string) {
-        return new Promise((resolve,reject) => {
-            try {
-                const _decoded=jwt.decode(token,{complete: true});
-                resolve(_decoded)
-            } catch(error) {
-                reject(error)
-            }
-        })
-
-    }
+    
 
 
 

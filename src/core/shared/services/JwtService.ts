@@ -8,15 +8,14 @@ const _public=process.env.APP_SECURITY_PUBLIC_KEY??fs.readFileSync(path.resolve(
 
 export class JwtService {
 
-  createToken(params: object,expire: any): string|boolean {
+  createToken(params: object,expire: any): string|null {
 
     try {
       const _date=new Date()
       const token=jwt.sign({...params,iat: _date.getTime()},_private,{algorithm: 'RS256',expiresIn: expire});
       return token
     } catch(err) {
-      console.log(err)
-      return false
+      return null
     }
   }
 
@@ -46,5 +45,17 @@ export class JwtService {
     const diferenciaEnMilisegundos=fechaFinal.getTime()-fechaInicio.getTime();
     return Math.floor(diferenciaEnMilisegundos/60000);
   }
+
+  async tokenDecode(token: string) {
+    return new Promise((resolve,reject) => {
+        try {
+            const _decoded=jwt.decode(token,{complete: true});
+            resolve(_decoded)
+        } catch(error) {
+            reject(error)
+        }
+    })
+
+}
 
 }
