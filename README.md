@@ -90,11 +90,19 @@ git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
 node command.js module -n module-name
 ```
 
-## npm
+## all commands with npm
 ```bash
+# Module with routes file, use case and controller
 npm run command -- module -n moduleName
-#or
+
+# Use Case
 npm run command -- case -m moduleName -n useCaseName
+
+# Mongo db Model
+npm run command -- mdbmodel -n modelName
+
+# Help
+npm run command
 ```
 
 <p>This will create a module folder with its initial files in the folder [src/app]</p>
