@@ -90,6 +90,13 @@ git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
 node command.js module -n module-name
 ```
 
+## npm
+```bash
+npm run command -- module -n moduleName
+#or
+npm run command -- case -m moduleName -n useCaseName
+```
+
 <p>This will create a module folder with its initial files in the folder [src/app]</p>
 
 ```

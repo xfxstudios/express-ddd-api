@@ -90,7 +90,7 @@ export default class Server {
     routes() {
         const _app=this.app
         const _prefix=this.prefix
-        const _modules=path.resolve(fs.existsSync('dist/src/app/')? 'dist/src/app/':'src/app/')
+        const _modules=path.resolve(fs.existsSync('dist/src/app/')?'dist/src/app/':'src/app/')
         const _moduleRoutes=path.resolve(`${_modules}/:?/routes/`)
 
         const _folders=fs.readdirSync(_modules);

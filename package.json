@@ -12,7 +12,8 @@
     "dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && clear && ts-node src/start\" ",
     "postbundle": "copyfiles src/core/config/swagger_routes/*.yml dist/ && copyfiles src/core/config/swagger_definitions/*.yml dist/  && copyfiles src/core/config/certs/*.pem dist/",
     "migrate": "ts-node ./script/migration.ts",
-    "build:local":"bash ./script/build-local.sh"
+    "build:local":"bash ./script/build-local.sh",
+    "command":"node ./command.js"
   },
   "keywords": [],
   "author": "",
