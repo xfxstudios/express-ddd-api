@@ -4,10 +4,11 @@ import ErrorMessages,{FlowsEnum,ErrorCodes} from '../../../../core/shared/servic
 import {AuthRepository} from '../../../../core/shared/repositories/auth.repository';
 import {_servLog,_servResponse} from '../../../../core/shared/dependencies';
 import { IResponse } from '../../../../core/shared/services/ResponseService';
+import {IUseCaseContract} from '../../../../core/contracts/class_contracts/UseCase.contract';
 
 const _flow=FlowsEnum.AUTHENTICATION
 
-export class AuthLogoutCase {
+export class AuthLogoutCase implements IUseCaseContract {
 
   constructor(
     private readonly repository: AuthRepository
