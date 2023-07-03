@@ -12,8 +12,8 @@
     "dev": "nodemon -e ts --exec \"clear && echo \"Loading...\" && clear && ts-node src/start\" ",
     "postbundle": "copyfiles src/core/config/swagger_routes/*.yml dist/ && copyfiles src/core/config/swagger_definitions/*.yml dist/  && copyfiles src/core/config/certs/*.pem dist/",
     "migrate": "ts-node ./script/migration.ts",
-    "build:local":"bash ./script/build-local.sh",
-    "command":"node ./command.js"
+    "build:local": "bash ./script/build-local.sh",
+    "command": "node ./command.js"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,7 @@
     "jwk-to-pem": "^2.0.5",
     "listr2": "^6.6.0",
     "mongoose": "^6.3.0",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node_smart_logger": "^4.0.1",

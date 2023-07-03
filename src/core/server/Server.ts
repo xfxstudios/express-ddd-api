@@ -8,6 +8,7 @@ import {erroHandler} from '../middleware/errorHandler';
 import {_servGeneral,_servLog} from '../shared/dependencies';
 import { Listr } from 'listr2'
 import { config } from './../config/appConfig';
+const logger = require('morgan');
 const path=require('path');
 const fs=require('fs');
 
@@ -66,6 +67,7 @@ export default class Server {
         this.app.use(cors())
         this.app.set('view engine', 'pug')
         this.app.set('views', path.resolve('src/views'))
+        this.app.use(logger('dev'));
         this.app.use(express.json({limit: '50mb'}))
         this.app.use(express.static('public'))
         this.app.use(express.urlencoded({extended: true}));
@@ -117,7 +119,9 @@ export default class Server {
      */
     listener() {
         console.timeEnd('Tiempo de carga de la API');
-        this.app.listen(this.port,() => {})
+        this.app.listen(this.port,() => {
+            console.log(`Listening on http://localhost:${this.port}`);
+        })
     }
 
 }
