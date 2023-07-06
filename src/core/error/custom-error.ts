@@ -1,3 +1,5 @@
+import {_servLog} from "../shared/dependencies"
+
 export class CustomError extends Error {
 
   constructor(
@@ -10,5 +12,12 @@ export class CustomError extends Error {
     this.name=name??'CustomError'
     this.code=code??400
     this.httpcode=httpcode??400
+
+    this._logError()
+  }
+
+  private _logError(){
+    _servLog.setError(this.message, {name: this.name, code: this.code, httpcode: this.httpcode})
+    
   }
 }

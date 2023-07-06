@@ -1,3 +1,5 @@
+import {_servLog} from "../shared/dependencies"
+
 export const createFactoryError=function(name: string) {
   return class CustomizedError extends Error {
 
@@ -10,6 +12,13 @@ export const createFactoryError=function(name: string) {
       this.name=name
       this.code=code
       this.httpcode=httpcode
+
+      this._logError()
     }
+
+    private _logError(){
+      _servLog.setError(this.message, {name: this.name, code: this.code, httpcode: this.httpcode})
+    }
+
   }
 }

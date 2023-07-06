@@ -44,7 +44,6 @@ export class AuthLoginCase implements IUseCaseContract {
             flow: _flow,
             received: data.serialize()
           })
-          _servLog.setError(`${_flow} - ${_error.message}`,_error)
           reject(_error)
         })
 
