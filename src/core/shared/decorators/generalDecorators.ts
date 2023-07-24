@@ -22,9 +22,7 @@ export const ValidProperties=(_flow: string) => (
     let _result
     const _valid=await _servGeneral._validateBody(_dto)
     if(_valid.length>0) {
-
-      args[0]['valid_error']=true
-      args[0]['error_data']=_servResponse.response({
+      throw _servResponse.response({
         error: true,
         code: ErrorCodes.INVALID_PARAMETER_ERROR,
         message: ErrorMessages[ErrorCodes.INVALID_PARAMETER_ERROR],
@@ -32,8 +30,6 @@ export const ValidProperties=(_flow: string) => (
         flow: _flow,
         errors: _valid
       })
-      _result=originalMethod.apply(this,args);
-
     } else {
       _result=originalMethod.apply(this,args);
     }

@@ -17,9 +17,6 @@ export class TesterrorCase {
   async execute(data: TesterrorDTO):Promise<IResponse> {
 
     return new Promise((resolve, reject) => {
-      if(data['valid_error']) {
-        reject(data['error_data'])
-      }
 
       _servRequest.setUrl("").setHeaders({}).setBody({})
 

@@ -17,9 +17,6 @@ export class AuthLogoutCase implements IUseCaseContract {
   @ValidProperties(_flow)
   async execute(data: AuthLogoutDTO):Promise<IResponse> {
     return new Promise((resolve,reject) => {
-      if(data['valid_error']) {
-        reject(data['error_data'])
-      }
 
       this.repository.makeLogOut(data.getToken())
         .then((_) => {

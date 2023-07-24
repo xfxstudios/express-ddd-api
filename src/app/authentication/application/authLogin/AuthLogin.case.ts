@@ -19,10 +19,7 @@ export class AuthLoginCase implements IUseCaseContract {
   @ValidProperties(_flow)
   async execute(data: AuthLoginDTO):Promise<IResponse> {
     return new Promise((resolve,reject) => {
-      if(data['valid_error']) {
-        reject(data['error_data'])
-      }
-
+      
       this.repository.makeLogin(data.getUsername(),data.getPassword())
         .then((response) => {
           const _response=_servResponse.response({
