@@ -5,12 +5,16 @@ definitions:
     - step: &prep-environment
         name: Prepare environment vars
         script:
-          - echo "export ENVIRONMENT=$ENVIRONMENT" > .envs
+          - echo "ENVIRONMENT=$ENVIRONMENT" > .env
+          - echo "USER=$USER" >> .env
+          - echo "SERVER=$SERVER" >> .env
+          - echo "REMOTE_PATH=$REMOTE_PATH" >> .env
           - if [ -v BITBUCKET_TAG ]; then
-              echo "export IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_TAG" >> .envs;
+              echo "IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_TAG" >> .env;
             else
-              echo "export IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_COMMIT" >> .envs;
+              echo "IMAGE_NAME=$DOCKER_HUB_USERNAME/sube-api-$ENVIRONMENT:$BITBUCKET_COMMIT" >> .env;
             fi
+
           - echo "PORT_IN=$PORT_IN" >> .envs
           - echo "PORT_OUT=$PORT_OUT" >> .envs
           - echo "REMOTE_PATH=$REMOTE_PATH" >> .envs
@@ -27,6 +31,7 @@ definitions:
           - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .envs
 
       artifacts:
+        - .env
         - .envs
 
     - step: &test
@@ -34,6 +39,7 @@ definitions:
         caches:
             - node
         artifacts:
+          - .env
           - .envs
         script:
           - npm install
@@ -46,6 +52,7 @@ definitions:
         caches: 
           - docker
         artifacts:
+          - .env
           - .envs
         script:
           - source .envs
@@ -59,8 +66,12 @@ definitions:
     - step: &deploy
           name: Send config files to server
           artifacts:
+            - .env
             - .envs
           script:
+              - source .env
+              - chmod +w script
+              - cp .envs script/.env
               - pipe: atlassian/rsync-deploy:0.3.2
                 variables:
                   USER: $USER
@@ -71,9 +82,10 @@ definitions:
                   EXTRA_ARGS: "--exclude=.bitbucket/ --exclude=.git/ --exclude=.github/"
               - echo "Deployment is done...!"
 
-    - step: &execute
+    - step: &execute-swarm
           name: Deploy Service
           artifacts:
+            - .env
             - .envs
           script:
               - source .envs
@@ -106,6 +118,28 @@ definitions:
                     AWS_AWS_REGION=$AWS_AWS_REGION
                     AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                     AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+              - echo "Server done...!"
+    
+    - step: &execute-container
+          name: Deploy Service
+          artifacts:
+            - .env
+            - .envs
+          script:
+              - source .env
+              - pipe: atlassian/ssh-run:0.4.0
+                variables:
+                  SSH_USER: $USER
+                  SERVER: $SERVER
+                  MODE: 'script'
+                  COMMAND: 'script/run-docker-service.sh'
+                  PORT: '22'
+                  ENV_VARS: >-
+                    REMOTE_PATH='$REMOTE_PATH'
+                    DOCKER_HUB_USERNAME=$DOCKER_HUB_USERNAME
+                    DOCKER_HUB_PASSWORD=$DOCKER_HUB_PASSWORD
+                    CONTAINER_NAME=lirium-nx-wrapper
+                    IMAGE_NAME=$IMAGE_NAME
               - echo "Server done...!"
 
     - step: &clean

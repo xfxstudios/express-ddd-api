@@ -29,3 +29,61 @@ definitions:
             type: string
         example:
           name: Jhon
+  token:
+    name: authorization
+    in: header
+    description: lo que sea
+
+  prueba:
+      description: Prueba de definicion
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+        403:
+          $ref: '#responses/403'
+
+  prueba2:
+    post:
+      description: Prueba 2 de definicion
+      tags: [Pruebas]
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+        403:
+          $ref: '#responses/403'
+  
+  prueba3:
+    get:
+      description: Prueba 3 de definicion
+      tags: [Pruebas]
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+        403:
+          $ref: '#responses/403'
+  
+  prueba4:
+    get:
+      description: Prueba 4 de definicion
+      tags: [Pruebas 2]
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+        403:
+          $ref: '#responses/403'

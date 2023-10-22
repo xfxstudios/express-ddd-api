@@ -6,12 +6,9 @@
         - application/json
       parameters:
         - $ref: '#/definitions/login'
-        - $ref: '#/definitions/token'
       responses:
         200:
-          description: Success
-          schema:
-            type: object
+          $ref: '#responses/200'
         403:
           $ref: '#responses/403'
     delete:
@@ -27,12 +24,3 @@
           description: login
           schema:
             type: object
-    get: 
-      $ref: '#/definitions/prueba'
-
-/auth2:
-    $ref: '#/definitions/prueba2'
-/auth3:
-    $ref: '#/definitions/prueba3'
-/auth4:
-    $ref: '#/definitions/prueba4'

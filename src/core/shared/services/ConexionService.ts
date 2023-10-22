@@ -16,7 +16,7 @@ export const mongoConection=async () => {
         useUnifiedTopology: true,
         retrywrites: false,
         ssl: false,
-        sslValidate: false,
+        tlsAllowInvalidCertificates: true,
         directConnection: true,
         authSource: 'admin',
         serverSelectionTimeoutMS:10000

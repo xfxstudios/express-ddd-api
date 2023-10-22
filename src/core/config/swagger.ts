@@ -1,8 +1,9 @@
 import path from 'path';
 
 const routesPath=path.resolve(__dirname,'../../application')+`/routes/*.js`;
-const swaggerRoutes=path.resolve(__dirname,'../../infraestructure')+`/app_config/swagger_routes/*.yml`;
-const swaggerDefinitions=path.resolve(__dirname,'../../infraestructure')+`/app_config/swagger_definitions/*.yml`;
+const swaggerRoutes=path.resolve(__dirname,'./swagger_routes')+`/*.yml`;
+//const swaggerRoutes=path.resolve(__dirname,'../../app/authentication/swagger_routes')+`/*.yml`;
+const swaggerDefinitions=path.resolve(__dirname,'./swagger_definitions')+`/*.yml`;
 
 
 const swaggerDef={

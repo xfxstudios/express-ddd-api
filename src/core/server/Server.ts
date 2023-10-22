@@ -8,6 +8,7 @@ import {erroHandler} from '../middleware/errorHandler';
 import {_servGeneral,_servLog} from '../shared/dependencies';
 import { Listr } from 'listr2'
 import { config } from './../config/appConfig';
+import {swaggerDef} from '../config/swagger';
 const logger = require('morgan');
 const path=require('path');
 const fs=require('fs');
@@ -72,6 +73,7 @@ export default class Server {
         this.app.use(express.static('public'))
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(IncommingLog)
+        this.app.use("/docs", swaggerUi.serve, swaggerUi.setup( swaggerJsdoc(swaggerDef) ));
     }
 
 
