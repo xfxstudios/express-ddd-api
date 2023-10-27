@@ -13,7 +13,7 @@ RUN npm run build
 
 RUN npm ci --production
 
-FROM node:18.16.0
+FROM node:20.9.0
 
 WORKDIR /app
 
