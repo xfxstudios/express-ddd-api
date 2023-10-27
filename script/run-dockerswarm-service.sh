@@ -23,10 +23,10 @@ sudo docker pull $IMAGE_NAME
 
 
 echo "::::::::::::: DELETE SERVICE :::::::::::::"
-if [[ $(docker service ls | grep '${CONTAINER_NAME}_api') == *${CONTAINER_NAME}_api* ]]; then
+if [[ $(docker service ls | grep "${CONTAINER_NAME}_api") == *"${CONTAINER_NAME}_api"* ]]; then
   echo "Eliminando Servicio"
-  sudo docker service rm ${CONTAINER_NAME}_api
-  sudo docker stack rm ${CONTAINER_NAME}_api
+  sudo docker service rm "${CONTAINER_NAME}_api"
+  sudo docker stack rm "${CONTAINER_NAME}_api"
 fi
 
 echo "::::::::::::: RUN SERVICE :::::::::::::"
