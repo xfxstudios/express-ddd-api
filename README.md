@@ -27,8 +27,6 @@ nvm use 18.16.0
 
 <p>The Husky Library has been implemented in the project to validate the process of creating commits and branches and thus follow a standard.</p>
 
-
-
 <p>The commits must be created following a convention that is configurable in the file <code>commitlint.config.js</code></p>
 
 ### Example of a correct commit
