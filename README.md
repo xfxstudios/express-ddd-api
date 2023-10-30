@@ -1,4 +1,13 @@
-# Sube node API
+# NodeJS - Express DDD API Template
+
+
+### ATENTION:
+<p>Delete git folder on root service after clone repository</p>
+<hr/><br/>
+
+<p>To suggest or request adding changes, please clone the repository, create a new branch with your name/ISSUE and then request PR</p>
+
+
 
 ## NODE VERSION FOR DEVELOP AND PRODUCTION: 18.16.0
 
@@ -83,7 +92,7 @@ git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
 <p>Update url for the specified domain for the tests in the postman environment attached to this repo</p>
 
 # Modules and Use Case Creation
-<p>To create modulkos and use cases, there is a command that can be used in this way:</p>
+<p>To create modules and use cases, there is a command that can be used in this way:</p>
 
 ## Module Creation
 ```bash
