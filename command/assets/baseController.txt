@@ -1,6 +1,7 @@
 import {Request,Response} from "express";
 import {:nameCase} from '../application/:casenameCase/:casename.case'
 import {:nameDTO} from '../application/:casenameCase/:dtoname.dto'
+import { :inameRepository } from './persistence/:importname.repository';
 
 export class :nameController {
 
@@ -12,7 +13,9 @@ export class :nameController {
   async helloApp(req: Request,res: Response) {
 
     const _dto = new :nameDTO(req.body)
-    const _int = new :nameCase()
+    const _int = new :nameCase(
+      new :inameRepository()
+    )
     _int.execute(_dto)
       .then((resp) => res.send('Hello Word!!!'))
       .catch((e) => res.status(400).send('Error general'))

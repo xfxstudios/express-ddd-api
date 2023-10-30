@@ -1,16 +1,17 @@
 import {Router} from 'express'
-import {TesterrorController} from '../infrastructure/testerror.controller'
+import {ModuloDemoController} from '../infrastructure/moduloDemo.controller'
+import {FlowsEnum} from '../../../core/shared/services/Enums';
 import authentication from '../../../core/middleware/validApiKey.middleware';
 
-const controller=new TesterrorController()
+const controller=new ModuloDemoController()
 const route=Router()
-const _basePath=`/test`
+const _basePath=`/${FlowsEnum.HELLO}`
 
 
 ///////////////////////////////////////////
 ///////////// SECURITY ROUTES /////////////
 ///////////////////////////////////////////
 
-route.post(`${_basePath}/test-url`,[authentication],controller.testErrorUrl)
+route.get(`${_basePath}`,[authentication],controller.helloApp)
 
 module.exports=route

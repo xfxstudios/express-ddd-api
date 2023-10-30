@@ -2,18 +2,14 @@ import {GeneralService} from './services/GeneralServices';
 import ResponseService from './services/ResponseService';
 import {SmartLogger} from 'node_smart_logger';
 import {RequestService} from './services/requestHelper/requestService';
-import {AuthRepository} from './repositories/auth.repository';
 import {JwtService} from './services/JwtService';
-import {GeneralRepository} from './repositories/general.repository';
-import {LogsRepository} from './repositories/logs.repository';
+import {GeneralRepository} from './persistence/general.repository';
 
 
 /**
  * Repositories
  */
-export const _repoAuth=new AuthRepository()
 export const _repoGeneral=new GeneralRepository()
-export const _repoLogs=new LogsRepository()
 
 
 /**

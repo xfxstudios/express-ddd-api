@@ -1,11 +1,14 @@
 import {ValidProperties} from "../../../../core/shared/decorators/generalDecorators";
+import { :inameRepository } from '../../domain/repositories/:importname.repository';
 import {:nameDTO} from "./:dtoname.dto";
 
 const _flow="FlowHere"
 
 export class :nameCase {
 
-  constructor() {}
+  constructor(
+    private readonly repository::inameRepository
+  ) {}
 
   @ValidProperties(_flow)
   async execute(data: :nameDTO) {

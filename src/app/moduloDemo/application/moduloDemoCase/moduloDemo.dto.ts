@@ -1,5 +1,5 @@
 
-export class LogsmoduleDTO {
+export class ModuloDemoDTO {
   private value: string
 
   constructor(data: any) {

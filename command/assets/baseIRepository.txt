@@ -1,0 +1,6 @@
+
+interface :nameRepository {
+  save(user:any): void;
+}
+
+export { :nameRepository }

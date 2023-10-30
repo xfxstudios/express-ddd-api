@@ -1,0 +1,7 @@
+import { :inameRepository } from '../../domain/repositories/:importname.repository';
+
+export class :nameRepository implements :inameRepository {
+  save(user:any) {
+    ///
+  }
+}
