@@ -7,8 +7,6 @@
 
 <p>To suggest or request adding changes, please clone the repository, create a new branch with your name/ISSUE and then request PR</p>
 
-
-
 ## NODE VERSION FOR DEVELOP AND PRODUCTION: 18.16.0
 
 ```bash
