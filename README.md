@@ -89,8 +89,6 @@ git branch -m mi-rama-actual feature/BUQ-123-info-de-rama
 <p>Postman collections are found in the root folder of the same name and are updated when changes arise in the endpoints if it is merited.</p>
 <p>Update url for the specified domain for the tests in the postman environment attached to this repo</p>
 
-
-
 # Modules and Use Case Creation
 <p>To create modules and use cases, there is a command that can be used in this way:</p>
 
