@@ -115,7 +115,11 @@ npm run command
    |   |- module-default.case.ts
    |   |- module-default.dto.ts
    |-/domain
+     |-/ repositories
+       |- iModuleName.repository.ts
    |-/insfrastructure
+     |-/persistence
+       |- moduleName.repository.ts
      |- module.controller.ts
    |-/routes
      |- module.routes.ts
