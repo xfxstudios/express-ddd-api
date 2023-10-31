@@ -2,7 +2,7 @@ import {ValidProperties} from "../../../../core/shared/decorators/generalDecorat
 import { :inameRepository } from '../../domain/repositories/:importname.repository';
 import {:nameDTO} from "./:dtoname.dto";
 
-const _flow="FlowHere"
+const _flow=`/${FlowsEnum.UNITS}`
 
 export class :nameCase {
 

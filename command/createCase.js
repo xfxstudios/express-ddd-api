@@ -17,7 +17,7 @@ const createCase=async (module, name) => {
             .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
             .replace(/:dtoname/g, name)
             .replace(/:iname/g, `I${module[0].toLowerCase()}${module.slice(1)}`)
-            .replace(/:importname/g, `i${module[0].toLowerCase()}${module.slice(1)}`)
+            .replace(/:importname/g, `i${module[0].toUpperCase()}${module.slice(1)}`)
 
 
         fs.writeFile(`${caseFolder}/${name}.case.ts`, result, (err) => {

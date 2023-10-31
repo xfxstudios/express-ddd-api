@@ -2,7 +2,7 @@ const fs=require('fs');
 
 const createModule=async (name) => {
 
-    const moduleFolder='./src/app/'+name;
+    const moduleFolder='./src/app/'+name[0].toUpperCase()+name.slice(1);
 
     fs.mkdirSync(moduleFolder)
     fs.mkdirSync(moduleFolder+'/application')
@@ -22,7 +22,7 @@ const createModule=async (name) => {
             .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
             .replace(/:dtoname/g, name)
             .replace(/:iname/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
-            .replace(/:importname/g, `i${name[0].toLowerCase()}${name.slice(1)}`)
+            .replace(/:importname/g, `i${name[0].toUpperCase()}${name.slice(1)}`)
 
         fs.writeFile(`${moduleFolder}/application/${name}Case/${name}.case.ts`, result, (err) => {
             if(err) {
@@ -93,7 +93,7 @@ const createModule=async (name) => {
         const result=data
             .replace(/:name/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
 
-        fs.writeFile(`${moduleFolder}/domain/repositories/i${name}.repository.ts`, result, (err) => {
+        fs.writeFile(`${moduleFolder}/domain/repositories/i${name[0].toUpperCase()}${name.slice(1)}.repository.ts`, result, (err) => {
             if(err) {
                 throw new Error(err);
             }
