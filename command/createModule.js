@@ -109,7 +109,7 @@ const createModule=async (name) => {
         const result=data
             .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
             .replace(/:iname/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
-            .replace(/:importname/g, `i${name[0].toLowerCase()}${name.slice(1)}`)
+            .replace(/:importname/g, `i${name[0].toUpperCase()}${name.slice(1)}`)
 
         fs.writeFile(`${moduleFolder}/infrastructure/persistence/${name}.repository.ts`, result, (err) => {
             if(err) {
