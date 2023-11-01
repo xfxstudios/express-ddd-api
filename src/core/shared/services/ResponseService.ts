@@ -10,7 +10,11 @@ export interface IResponse {
     http?: any
 }
 
-export default class ResponseService {
+export interface IResponseService {
+    response(items:any):IResponse
+}
+
+export default class ResponseService implements IResponseService {
 
 
     response(items: any): IResponse {

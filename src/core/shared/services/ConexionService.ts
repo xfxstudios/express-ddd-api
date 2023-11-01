@@ -27,6 +27,7 @@ export const mongoConection=async () => {
 
 
     try {
+        mongoose.set('strictQuery', false);
         await mongoose.connect(_uri,_options)
         return true;
     } catch(err) {
