@@ -67,7 +67,7 @@ export default class Server {
     async middleware() {
         this.app.use(cors())
         this.app.set('view engine', 'pug')
-        this.app.set('views', path.resolve('src/views'))
+        this.app.set('views', path.resolve(fs.existsSync('dist/src/views')?'dist/src/views':'src/views'))
         this.app.use(logger('dev'));
         this.app.use(express.json({limit: '50mb'}))
         this.app.use(express.static('public'))
