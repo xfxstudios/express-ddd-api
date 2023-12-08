@@ -5,7 +5,7 @@ import {IncommingLog} from '../middleware/incommingLog'
 import {mongoConection} from '../shared/services/ConexionService';
 import {errorNotFoundHandler} from '../middleware/errorNotFoundHandler';
 import {erroHandler} from '../middleware/errorHandler';
-import {_servGeneral,_servLog} from '../shared/dependencies';
+import {_servGeneral} from '../shared/dependencies';
 import { Listr } from 'listr2'
 import { config } from './../config/appConfig';
 import {swaggerDef} from '../config/swagger';
@@ -16,6 +16,14 @@ const fs=require('fs');
 const swaggerJsdoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express')
 
+// GraphQL
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import http from 'http';
+import {typeDefs} from '../../graphql/typeDefs';
+import {resolvers} from '../../graphql/resolvers';
+
 console.time('Tiempo de carga de la API');
 
 export default class Server {
@@ -23,39 +31,47 @@ export default class Server {
     protected app: Application
     protected prefix: string
     protected port: any
+    protected httpServer: any
 
     constructor() {
         this.port=process.env.PORT
         this.prefix=config.apiPrefix
         this.app=express()
+        this.httpServer = http.createServer(this.app);
         this._init()
         
     }
     
     async _init(){
 
-        const tasks = new Listr<any>([
-                {
-                    title: 'Connecting to Database',
-                    task: async (): Promise<void> => this.dbConection()
-                },
-                {
-                    title: 'Loading Middlewares',
-                    task: async (): Promise<void> =>  this.middleware()
-                },
-                {
-                    title: 'Loading Routes',
-                    task: async (): Promise<void> =>  this.routes()
-                },
-                {
-                    title: 'Printings Routes',
-                    task: async (): Promise<void> =>  this.printRoutes()
-                },
-                {
-                    title: 'Loading Server',
-                    task: async (): Promise<void> =>  this.listener()
-                },
-        ],{exitOnError: true})
+        const _taskItems = [
+            {
+                title: 'Connecting to Database',
+                task: async (): Promise<void> => this.dbConection()
+            },
+            {
+                title: 'Loading Middlewares',
+                task: async (): Promise<void> =>  this.middleware()
+            },
+            {
+                title: 'Loading GraphQl Services',
+                task: async (): Promise<void> =>  this.loadGraphQl()
+            },
+            {
+                title: 'Loading Routes',
+                task: async (): Promise<void> =>  this.routes()
+            },
+            {
+                title: 'Printings Routes',
+                task: async (): Promise<void> =>  this.printRoutes()
+            },
+            {
+                title: 'Loading Server',
+                task: async (): Promise<void> =>  this.listener()
+            }
+        ];
+
+        const tasks = new Listr<any>(_taskItems,{exitOnError: true})
 
         await tasks.run()
     }
@@ -65,6 +81,8 @@ export default class Server {
      * Middlewares
     */
     async middleware() {
+        
+
         this.app.use(cors())
         this.app.set('view engine', 'pug')
         this.app.set('views', path.resolve(fs.existsSync('dist/src/views')?'dist/src/views':'src/views'))
@@ -74,6 +92,24 @@ export default class Server {
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(IncommingLog)
         this.app.use("/docs", swaggerUi.serve, swaggerUi.setup( swaggerJsdoc(swaggerDef) ));
+
+    }
+
+    async loadGraphQl(){
+        // https://github.com/apollographql/apollo-server
+
+        if(config.graphqlEnabled){
+            const _httpServer:any = this.httpServer
+    
+            // GraphQL Server
+            const server = new ApolloServer({
+                typeDefs,
+                resolvers,
+                plugins: [ApolloServerPluginDrainHttpServer({ httpServer:_httpServer })],
+            });
+            await server.start();
+            this.app.use(expressMiddleware(server))
+        }
     }
 
 

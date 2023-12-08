@@ -17,7 +17,6 @@ export enum ErrorCodes {
   INVALID_PARAMETER_ERROR=4007,
   TOO_MANY_REQUEST=4008,
   COGNITO_INTERNAL_ERROR=4010,
-  RESOURCE_NOT_FOUND=4010,
   PASSWORD_RESET_REQUIRED=4011,
   COGNITO_INVALID_CONFIGURATION=4012,
   MFA_NOT_FOUND=4013,
@@ -33,6 +32,7 @@ export enum ErrorCodes {
   TOKEN_NOT_FOUND=4023,
   INVALID_LOGIN_DATA=4024,
   INVALID_API_KEY=4025,
+  RESOURCE_NOT_FOUND=40126,
 }
 
 export const HttpErrorMessage = {
@@ -78,13 +78,14 @@ export enum HttpErrorCode {
   SERVICE_UNAVAILABLE=503,
 
   ECONNABORTED=504,
-  ECONNREFUSED=503,
-  ECONNRESET=502,
+  // ECONNREFUSED=503,
+  // ECONNRESET=502,
   ENOTFOUND=410,
-  ETIMEDOUT=504
-};
+  // ETIMEDOUT=504
+}
 
 export enum FlowsEnum {
+  HELLO='hello',
   ACCOUNT='account',
   AUTHENTICATION='authentication',
   PATIENT='patient',
@@ -120,7 +121,7 @@ const ErrorMessages={
   4007: 'invalid parameter error',
   4008: 'too many requests',
   4009: 'cognito internal error',
-  4010: 'resource not found',
+  4010: 'internal error',
   4011: 'password reset required',
   4012: 'cognito invalid configuration',
   4013: 'mfa not found',
@@ -136,6 +137,7 @@ const ErrorMessages={
   4023: 'token not found',
   4024: 'Invalid login data, please verify your credentials and try again',
   4025: 'Invalid API key, please verify',
+  4026: 'resource not found',
 }
 
 export default ErrorMessages

@@ -3,6 +3,7 @@ export const config: any={
     usingMongo: process.env.USING_MONGO??false,
     usingMysql: process.env.USING_MYSQL??false,
     enableApyKey: process.env.API_ENABLE??true,
+    graphqlEnabled:process.env.GRAPHQL_ENABLE??true,
     appStage: 'default',
     apiKey: process.env.APIKEY,
     developEnvironments:['develop','dev','qa','local'],

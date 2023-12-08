@@ -1,6 +1,6 @@
 require('dotenv').config()
 import cluster from "node:cluster"
-import os from "os"
+// import os from "os"
 import Server from './core/server/Server';
 
 // const cpuCount = os.cpus().length;
@@ -16,6 +16,7 @@ if(cluster.isPrimary){
   }
 
   cluster.on("exit", (worker, code, signal) => {
+    console.log(code, signal)
     console.log(`Worker ${worker.process.pid} has been killed`);
     console.log("Starting another worker");
     cluster.fork();
