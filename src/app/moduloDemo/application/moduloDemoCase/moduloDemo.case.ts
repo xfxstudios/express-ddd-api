@@ -21,6 +21,16 @@ export class ModuloDemoCase {
       this.repository.save(new Account(id,name))
       .then((response)=> resolve(response))
       .catch((e) => reject(e))
+
+
+      // this.repository.getAll('role',{active:true})
+      // .then((list:any) => resolve(list))
+      // .catch((e) => reject(e))
+
+      // this.repository.get('role',{name:"admin"})
+      // .then((list:any) => resolve(list))
+      // .catch((e) => reject(e))
+
     })
   }
 }

@@ -1,5 +1,10 @@
 import { Account } from '../../domain/entities/Account.entitie';
 import { I:nameRepository } from '../../domain/repositories/i:name.repository';
+import RoleModel from '../../../../core/shared/models/RoleModel';
+
+const _models = {
+  "role":RoleModel
+}
 
 export class :nameRepository implements I:nameRepository {
   public async save(user:Account): Promise<any> {
@@ -8,22 +13,37 @@ export class :nameRepository implements I:nameRepository {
     })
   }
 
-  update(data: any): Promise<any> {
-    console.log(data)
-    throw new Error('Method not implemented.');
+  public async update(model:string, filter:object, data:object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      _models[model??'role'].findOneAndUpdate(filter, data, {new:true})
+      .then((doc:any) => resolve(doc))
+      .catch((e) => reject(e))
+    })
   }
   
-  delete(data: any): Promise<any> {
-    console.log(data)
-    throw new Error('Method not implemented.');
+  public async delete(model:string, filter:object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      _models[model??"role"].deleteMany(filter)
+      .then((data:any) => resolve(data))
+      .catch((e) => reject(e))
+    })
   }
 
-  get(data: any): Promise<any> {
-    console.log(data)
-    throw new Error('Method not implemented.');
+  public async get(model:string, filter:object): Promise<any> {
+    return new Promise((resolve) => {
+      _models[model??"role"].findOne(filter)
+      .then((docs:any) => {
+        resolve(docs)
+      })
+    })
   }
 
-  getAll(): Promise<any> {
-    throw new Error('Method not implemented.');
+  public async getAll(model:string, filter:object={}): Promise<any> {
+    return new Promise((resolve) => {
+      _models["role"].find(filter)
+      .then((docs:any) => {
+        resolve(docs)
+      })
+    })
   }
 }

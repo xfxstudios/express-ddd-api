@@ -16,13 +16,13 @@ const fs=require('fs');
 const swaggerJsdoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express')
 
-// GraphQL
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import http from 'http';
-import {typeDefs} from '../../graphql/typeDefs';
-import {resolvers} from '../../graphql/resolvers';
+// GraphQL
+// import { ApolloServer } from '@apollo/server';
+// import { expressMiddleware } from '@apollo/server/express4';
+// import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+// import {typeDefs} from '../../graphql/typeDefs';
+// import {resolvers} from '../../graphql/resolvers';
 
 console.time('Tiempo de carga de la API');
 
@@ -53,10 +53,10 @@ export default class Server {
                 title: 'Loading Middlewares',
                 task: async (): Promise<void> =>  this.middleware()
             },
-            {
-                title: 'Loading GraphQl Services',
-                task: async (): Promise<void> =>  this.loadGraphQl()
-            },
+            // {
+            //     title: 'Loading GraphQl Services',
+            //     task: async (): Promise<void> =>  this.loadGraphQl()
+            // },
             {
                 title: 'Loading Routes',
                 task: async (): Promise<void> =>  this.routes()
