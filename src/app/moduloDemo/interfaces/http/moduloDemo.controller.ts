@@ -1,7 +1,7 @@
 import {Request,Response} from "express";
-import {ModuloDemoCase} from '../application/moduloDemoCase/moduloDemo.case'
-import {ModuloDemoDTO} from '../application/moduloDemoCase/moduloDemo.dto'
-import { ModuloDemoRepository } from './persistence/moduloDemo.repository';
+import {ModuloDemoDTO} from "../../application/moduloDemoCase/moduloDemo.dto";
+import {ModuloDemoCase} from "../../application/moduloDemoCase/moduloDemo.case";
+import {ModuloDemoRepository} from "../../infrastructure/persistence/moduloDemo.repository";
 
 export class ModuloDemoController {
 
@@ -17,8 +17,8 @@ export class ModuloDemoController {
       new ModuloDemoRepository()
     )
     _int.execute(_dto)
-      .then((resp) => res.send('Hello Word!!!'))
-      .catch((e) => res.status(400).send('Error general'))
+      .then((resp) => res.send(resp))
+      .catch((e) => res.status(400).send(e))
   }
 
 }

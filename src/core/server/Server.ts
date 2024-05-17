@@ -98,18 +98,18 @@ export default class Server {
     async loadGraphQl(){
         // https://github.com/apollographql/apollo-server
 
-        if(config.graphqlEnabled){
-            const _httpServer:any = this.httpServer
+        // if(config.graphqlEnabled){
+        //     const _httpServer:any = this.httpServer
     
-            // GraphQL Server
-            const server = new ApolloServer({
-                typeDefs,
-                resolvers,
-                plugins: [ApolloServerPluginDrainHttpServer({ httpServer:_httpServer })],
-            });
-            await server.start();
-            this.app.use(expressMiddleware(server))
-        }
+        //     // GraphQL Server
+        //     const server = new ApolloServer({
+        //         typeDefs,
+        //         resolvers,
+        //         plugins: [ApolloServerPluginDrainHttpServer({ httpServer:_httpServer })],
+        //     });
+        //     await server.start();
+        //     this.app.use(expressMiddleware(server))
+        // }
     }
 
 

@@ -1,18 +1,20 @@
 
 export class ModuloDemoDTO {
-  private value: string
+  private id: string
+  private name: string
 
   constructor(data: any) {
-    this.value=data.value
+    this.id=data.id
+    this.name=data.name
   }
 
-  getValue(): string {
-    return this.value
-  }
+  getId(): string { return this.id }
+  getName(): string { return this.name }
 
   serialize() {
     return {
-      value: this.getValue()
+      id: this.getId(),
+      name: this.getName()
     }
   }
 }
