@@ -28,6 +28,7 @@ const createModule=async (name) => {
         }
         const result=data
             .replaceAll(/:name/g, `${capitalize(name)}`)
+            .replaceAll(/:modulename/g, `${capitalize(name)}`);
 
         fs.writeFile(`${moduleFolder}/application/${name}Case/${name}.case.ts`, result, (err) => {
             if(err) {

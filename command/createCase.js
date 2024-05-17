@@ -1,5 +1,10 @@
 const fs=require('fs');
 
+const capitalize = (value) => {
+    const [firstLetter, ...restOfWord] = value;
+    return firstLetter.toUpperCase()+restOfWord.join('')
+}
+
 const createCase=async (module, name) => {
 
     const moduleFolder='./src/app/'+module+'/application';
@@ -14,10 +19,8 @@ const createCase=async (module, name) => {
         }
         console.log("::::::::::::::", module)
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:dtoname/g, name)
-            .replace(/:iname/g, `I${module[0].toLowerCase()}${module.slice(1)}`)
-            .replace(/:importname/g, `i${module[0].toUpperCase()}${module.slice(1)}`)
+            .replaceAll(/:name/g, `${capitalize(name)}`)
+            .replaceAll(/:modulename/g, `${module}`);
 
 
         fs.writeFile(`${caseFolder}/${name}.case.ts`, result, (err) => {
@@ -34,7 +37,7 @@ const createCase=async (module, name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`);
+            .replaceAll(/:name/g, `${capitalize(name)}`)
 
         fs.writeFile(`${caseFolder}/${name}.dto.ts`, result, (err) => {
             if(err) {

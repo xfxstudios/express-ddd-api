@@ -1,5 +1,5 @@
 import {ValidProperties} from "../../../../core/shared/decorators/generalDecorators";
-import { I:nameRepository } from '../../domain/repositories/i:name.repository';
+import { I:modulenameRepository } from '../../domain/repositories/i:modulename.repository';
 import {:nameDTO} from "./:name.dto";
 import {FlowsEnum} from "../../../../core/shared/services/Enums";
 
@@ -8,7 +8,7 @@ const _flow=`/${FlowsEnum.HELLO}`
 export class :nameCase {
 
   constructor(
-    private readonly repository:I:nameRepository
+    private readonly repository:I:modulenameRepository
   ) {}
 
   @ValidProperties(_flow)
