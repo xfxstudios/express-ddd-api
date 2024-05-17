@@ -1,9 +1,9 @@
 import {Router} from 'express'
-import {:controllernameController} from '../infrastructure/:name.controller'
+import {:nameController} from '../interfaces/http/:name.controller'
 import {FlowsEnum} from '../../../core/shared/services/Enums';
 import authentication from '../../../core/middleware/validApiKey.middleware';
 
-const controller=new :controllernameController()
+const controller=new :nameController()
 const route=Router()
 const _basePath=`/${FlowsEnum.HELLO}`
 

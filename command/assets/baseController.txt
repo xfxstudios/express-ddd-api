@@ -1,7 +1,7 @@
 import {Request,Response} from "express";
-import {:nameCase} from '../application/:casenameCase/:casename.case'
-import {:nameDTO} from '../application/:casenameCase/:dtoname.dto'
-import { :inameRepository } from './persistence/:importname.repository';
+import {:nameCase} from '../../application/:casenameCase/:name.case'
+import {:nameDTO} from '../../application/:casenameCase/:name.dto'
+import { :nameRepository } from '../../infrastructure/persistence/:name.repository';
 
 export class :nameController {
 
@@ -14,11 +14,11 @@ export class :nameController {
 
     const _dto = new :nameDTO(req.body)
     const _int = new :nameCase(
-      new :inameRepository()
+      new :nameRepository()
     )
     _int.execute(_dto)
-      .then((resp) => res.send('Hello Word!!!'))
-      .catch((e) => res.status(400).send('Error general'))
+      .then((resp) => res.send(resp))
+      .catch((e) => res.status(400).send(e))
   }
 
 }

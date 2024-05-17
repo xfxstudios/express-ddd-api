@@ -1,5 +1,10 @@
 const fs=require('fs');
 
+const capitalize = (value) => {
+    const [firstLetter, ...restOfWord] = value;
+    return firstLetter.toUpperCase()+restOfWord.join('')
+}
+
 const createModule=async (name) => {
 
     const moduleFolder='./src/app/'+name[0].toUpperCase()+name.slice(1);
@@ -9,9 +14,12 @@ const createModule=async (name) => {
     fs.mkdirSync(moduleFolder+'/application/'+name+'Case')
     fs.mkdirSync(moduleFolder+'/domain')
     fs.mkdirSync(moduleFolder+'/domain/repositories')
+    fs.mkdirSync(moduleFolder+'/domain/entities')
     fs.mkdirSync(moduleFolder+'/routes')
     fs.mkdirSync(moduleFolder+'/infrastructure')
     fs.mkdirSync(moduleFolder+'/infrastructure/persistence')
+    fs.mkdirSync(moduleFolder+'/interfaces')
+    fs.mkdirSync(moduleFolder+'/interfaces/http')
 
     //UseCase
     fs.readFile(__dirname+'/assets/baseUseCase.txt', 'utf8', (err, data) => {
@@ -19,10 +27,7 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:dtoname/g, name)
-            .replace(/:iname/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
-            .replace(/:importname/g, `i${name[0].toUpperCase()}${name.slice(1)}`)
+            .replaceAll(/:name/g, `${capitalize(name)}`)
 
         fs.writeFile(`${moduleFolder}/application/${name}Case/${name}.case.ts`, result, (err) => {
             if(err) {
@@ -38,7 +43,7 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`);
+            .replace(/:name/g, `${capitalize(name)}`);
 
         fs.writeFile(`${moduleFolder}/application/${name}Case/${name}.dto.ts`, result, (err) => {
             if(err) {
@@ -54,8 +59,7 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:controllername/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:name/g, name)
+            .replaceAll(/:name/g, `${capitalize(name)}`)
 
         fs.writeFile(`${moduleFolder}/routes/${name}.routes.ts`, result, (err) => {
             if(err) {
@@ -71,13 +75,10 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:casename/g, name)
-            .replace(/:dtoname/g, name)
-            .replace(/:iname/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:importname/g, `${name[0].toLowerCase()}${name.slice(1)}`)
+            .replaceAll(/:name/g, `${capitalize(name)}`)
+            .replace(/:casename/g, capitalize(name))
 
-        fs.writeFile(`${moduleFolder}/infrastructure/${name}.controller.ts`, result, (err) => {
+        fs.writeFile(`${moduleFolder}/interfaces/http/${name}.controller.ts`, result, (err) => {
             if(err) {
                 throw new Error(err);
             }
@@ -91,13 +92,29 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
+            .replace(/:name/g, `I${capitalize(name)}`)
 
-        fs.writeFile(`${moduleFolder}/domain/repositories/i${name[0].toUpperCase()}${name.slice(1)}.repository.ts`, result, (err) => {
+        fs.writeFile(`${moduleFolder}/domain/repositories/i${capitalize(name)}.repository.ts`, result, (err) => {
             if(err) {
                 throw new Error(err);
             }
             console.log(`Archivo de repositorio ${name} creado en ${moduleFolder}/domain/repositories`);
+        })
+    })
+    
+    //Entitie
+    fs.readFile(__dirname+'/assets/baseEntitie.txt', 'utf8', (err, data) => {
+        if(err) {
+            throw new Error(err);
+        }
+        const result=data
+            .replace(/:name/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
+
+        fs.writeFile(`${moduleFolder}/domain/entities/Account.entitie.ts`, result, (err) => {
+            if(err) {
+                throw new Error(err);
+            }
+            console.log(`Archivo de entidad creado en ${moduleFolder}/domain/entities`);
         })
     })
 
@@ -107,9 +124,7 @@ const createModule=async (name) => {
             throw new Error(err);
         }
         const result=data
-            .replace(/:name/g, `${name[0].toUpperCase()}${name.slice(1)}`)
-            .replace(/:iname/g, `I${name[0].toLowerCase()}${name.slice(1)}`)
-            .replace(/:importname/g, `i${name[0].toUpperCase()}${name.slice(1)}`)
+            .replaceAll(/:name/g, `${capitalize(name)}`)
 
         fs.writeFile(`${moduleFolder}/infrastructure/persistence/${name}.repository.ts`, result, (err) => {
             if(err) {

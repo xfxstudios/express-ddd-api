@@ -1,7 +1,29 @@
-import { :inameRepository } from '../../domain/repositories/:importname.repository';
+import { Account } from '../../domain/entities/Account.entitie';
+import { I:nameRepository } from '../../domain/repositories/i:name.repository';
 
-export class :nameRepository implements :inameRepository {
-  save(user:any) {
-    ///
+export class :nameRepository implements I:nameRepository {
+  public async save(user:Account): Promise<any> {
+    return new Promise((resolve) => {
+      resolve(user)
+    })
+  }
+
+  update(data: any): Promise<any> {
+    console.log(data)
+    throw new Error('Method not implemented.');
+  }
+  
+  delete(data: any): Promise<any> {
+    console.log(data)
+    throw new Error('Method not implemented.');
+  }
+
+  get(data: any): Promise<any> {
+    console.log(data)
+    throw new Error('Method not implemented.');
+  }
+
+  getAll(): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 }

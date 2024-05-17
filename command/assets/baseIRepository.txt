@@ -1,6 +1,8 @@
+import { Account } from '../entities/Account.entitie';
+import { DatabaseContracts } from '../../../../core/contracts/generalDbContracts';
 
-interface :nameRepository {
-  save(user:any): void;
+interface :nameRepository extends DatabaseContracts {
+  save(user:Account): Promise<any>;
 }
 
 export { :nameRepository }
