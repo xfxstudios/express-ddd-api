@@ -1,5 +1,5 @@
 import {DbModelsEnum, getModel} from '../../../../core/shared/models';
-import {Account} from '../../domain/entities/Account.entitie';
+import {RoleEntity} from '../../domain/entities/Role.entity';
 import { ImoduloDemoRepository } from '../../domain/repositories/imoduloDemo.repository';
 
 
@@ -38,7 +38,7 @@ export class ModuloDemoRepository implements ImoduloDemoRepository {
     })
   }
 
-  public async save(model:DbModelsEnum, data:Account): Promise<Account> {
+  public async save(model:DbModelsEnum, data:RoleEntity): Promise<RoleEntity|any> {
     return new Promise((resolve, reject) => {
       getModel(model).create(data)
       .then((doc:any) => {
