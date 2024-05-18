@@ -18,7 +18,7 @@ export class ModuloDemoController {
     )
     _int.execute(_dto)
       .then((resp) => res.send(resp))
-      .catch((e) => res.status(400).send(e))
+      .catch((e) => res.status(e.http??400).send(e))
   }
 
 }

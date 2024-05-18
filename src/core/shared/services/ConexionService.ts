@@ -23,7 +23,7 @@ export const mongoConection=async () => {
     }
 
     mongoose.connection.on('connected', () =>{})
-    mongoose.connection.on('error', (error:any) =>{})
+    mongoose.connection.on('error', () =>{})
 
 
     try {

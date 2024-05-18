@@ -1,6 +1,6 @@
 export const config: any={
     apiPrefix: '/api/v1/',
-    usingMongo: process.env.USING_MONGO??false,
+    usingMongo: process.env.USING_MONGO??true,
     usingMysql: process.env.USING_MYSQL??false,
     enableApyKey: process.env.API_ENABLE??false,
     graphqlEnabled:process.env.GRAPHQL_ENABLE??false,

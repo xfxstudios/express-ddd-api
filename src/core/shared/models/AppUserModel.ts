@@ -37,7 +37,12 @@ const AppUserSchema=new Schema<IAppUserModel>({
   rol: [{type: String,ref: 'role'}],
 },{
   _id: false,
-  timestamps: true
+  timestamps: true,
+  toJSON: {
+    transform: (doc,ret) => {
+      ret._id=ret._id.toString()
+    }
+  }
 })
 
 AppUserSchema.post('save',(error,doc,next) => {
