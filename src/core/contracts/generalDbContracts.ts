@@ -1,7 +1,9 @@
+import {DbModelsEnum} from "../shared/models";
+
 export interface DatabaseContracts {
-  save(data: any): Promise<any>;
-  update(model:string, filter:object, data:object): Promise<any>;
-  delete(model:string, filter:object): Promise<any>;
-  get(model:string, filter:object): Promise<any>;
-  getAll(model:string, filter:object): Promise<any>;
+  save(model:DbModelsEnum, data: any): Promise<any>;
+  update(model:DbModelsEnum, filter:object, data:object): Promise<any>;
+  delete(model:DbModelsEnum, filter:object): Promise<any>;
+  get(model:DbModelsEnum, filter:object): Promise<any>;
+  getAll(model:DbModelsEnum, filter:object): Promise<any>;
 }
