@@ -8,7 +8,7 @@ const capitalize = (value) => {
 const createCase=async (module, name) => {
 
     const moduleFolder='./src/app/'+module+'/application';
-    const caseFolder=moduleFolder+'/'+name+'Case'
+    const caseFolder=moduleFolder+'/'+capitalize(name)+'Case'
 
     fs.mkdirSync(caseFolder)
 
@@ -23,11 +23,11 @@ const createCase=async (module, name) => {
             .replaceAll(/:modulename/g, `${module}`);
 
 
-        fs.writeFile(`${caseFolder}/${name}.case.ts`, result, (err) => {
+        fs.writeFile(`${caseFolder}/${capitalize(name)}.case.ts`, result, (err) => {
             if(err) {
                 throw new Error(err);
             }
-            console.log(`Caso de Uso ${name} creado en ruta ${caseFolder}`);
+            console.log(`Caso de Uso ${capitalize(name)} creado en ruta ${caseFolder}`);
         })
     })
 
@@ -39,11 +39,11 @@ const createCase=async (module, name) => {
         const result=data
             .replaceAll(/:name/g, `${capitalize(name)}`)
 
-        fs.writeFile(`${caseFolder}/${name}.dto.ts`, result, (err) => {
+        fs.writeFile(`${caseFolder}/${capitalize(name)}.dto.ts`, result, (err) => {
             if(err) {
                 throw new Error(err);
             }
-            console.log(`DTO ${name} creado en ruta ${caseFolder}/${name}Case`);
+            console.log(`DTO ${capitalize(name)} creado en ruta ${caseFolder}/${name}Case`);
         })
     })
 }
