@@ -86,6 +86,7 @@ export enum HttpErrorCode {
 
 export enum FlowsEnum {
   HELLO='hello',
+  ROLES='roles',
   ACCOUNT='account',
   AUTHENTICATION='authentication',
   PATIENT='patient',

@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "e22abd04-54fd-400f-a37c-b6b9eb7e69bd",
+		"name": "ApiTemplate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "3361949"
+	},
+	"item": [
+		{
+			"name": "New Role",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"-\",\r\n    \"name\":\"-\",\r\n    \"description\":\"-\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/api/v1/roles"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Role",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"-\",\r\n    \"description\":\"-\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/roles/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"roles",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "664bbfa58d770a1e85d37df4",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Role",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/roles/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"roles",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "<string>",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg==",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:3001/api/v1/roles/delete/all"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Roles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "bXVlc3RyYSBkZSBkYXRvcyBhIGVuY3J5cHRhcg==",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:3001/api/v1/roles"
+			},
+			"response": []
+		}
+	]
+}

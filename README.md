@@ -14,6 +14,9 @@ nvm install 18.16.0
 nvm use 18.16.0
 ```
 
+## Linter
+https://oxc-project.github.io/docs/guide/usage/linter-cli.html
+
 
 ## Install dependencies
 ```shell

@@ -2,14 +2,22 @@ import {Model} from 'mongoose';
 import AppUserModel from './AppUserModel';
 import DocumentTypeModel from './DocumentTypeModel';
 import PaymentTypeModel from './PaymentTypeModel';
-import RoleModel from './RoleModel';
 import TokenModel from './TokenModel';
+import mNewRoleModel from './NewRoleModel';
 
-const models = {
-  'user':AppUserModel,
+interface iModels {
+  'user': typeof AppUserModel,
+  'document':typeof DocumentTypeModel,
+  'payment':typeof PaymentTypeModel,
+  'role':typeof mNewRoleModel,
+  'token':typeof TokenModel,
+}
+
+const models:iModels = {
+  'user': AppUserModel,
   'document':DocumentTypeModel,
   'payment':PaymentTypeModel,
-  'role':RoleModel,
+  'role':mNewRoleModel,
   'token':TokenModel,
 }
 

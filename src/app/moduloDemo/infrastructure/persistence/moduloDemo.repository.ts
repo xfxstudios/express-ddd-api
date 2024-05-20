@@ -51,7 +51,7 @@ export class ModuloDemoRepository implements ImoduloDemoRepository {
   //Custom method
   public async getUsersWithRoles(): Promise<any> {
     return new Promise((resolve, reject) => {
-      getModel(DbModelsEnum.ROLE).find()
+      getModel(DbModelsEnum.USER).find()
       .populate({
         path: 'rol',
         select: '_id name permissions',
