@@ -9,9 +9,12 @@ import {_servGeneral} from '../shared/dependencies';
 import { Listr } from 'listr2'
 import { config } from './../config/appConfig';
 import {swaggerDef} from '../config/swagger';
+import { rateLimit } from 'express-rate-limit'
+
 const logger = require('morgan');
 const path=require('path');
 const fs=require('fs');
+
 
 const swaggerJsdoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express')
@@ -105,6 +108,17 @@ export default class Server {
         const _prefix=this.prefix
         const _modules=path.resolve(fs.existsSync('dist/src/app/')?'dist/src/app/':'src/app/')
         const _moduleRoutes=path.resolve(`${_modules}/:?/routes/`)
+
+        const limiter = rateLimit({
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+            message: 'Too many requests from this IP, please try again after 15 minutes',
+            statusCode: 429, // 429 status = Too Many Requests (RFC 6585)
+            legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+            // store: ... , // Redis, Memcached, etc. See below.
+        })
+
+        _app.use(limiter);
 
         const _folders=fs.readdirSync(_modules);
         _folders.forEach((item) => {
