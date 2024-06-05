@@ -17,12 +17,6 @@ const swaggerJsdoc=require('swagger-jsdoc');
 const swaggerUi=require('swagger-ui-express')
 
 import http from 'http';
-// GraphQL
-// import { ApolloServer } from '@apollo/server';
-// import { expressMiddleware } from '@apollo/server/express4';
-// import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
-// import {typeDefs} from '../../graphql/typeDefs';
-// import {resolvers} from '../../graphql/resolvers';
 
 console.time('Tiempo de carga de la API');
 
@@ -53,10 +47,6 @@ export default class Server {
                 title: 'Loading Middlewares',
                 task: async (): Promise<void> =>  this.middleware()
             },
-            // {
-            //     title: 'Loading GraphQl Services',
-            //     task: async (): Promise<void> =>  this.loadGraphQl()
-            // },
             {
                 title: 'Loading Routes',
                 task: async (): Promise<void> =>  this.routes()
@@ -93,23 +83,6 @@ export default class Server {
         this.app.use(IncommingLog)
         this.app.use("/docs", swaggerUi.serve, swaggerUi.setup( swaggerJsdoc(swaggerDef) ));
 
-    }
-
-    async loadGraphQl(){
-        // https://github.com/apollographql/apollo-server
-
-        // if(config.graphqlEnabled){
-        //     const _httpServer:any = this.httpServer
-    
-        //     // GraphQL Server
-        //     const server = new ApolloServer({
-        //         typeDefs,
-        //         resolvers,
-        //         plugins: [ApolloServerPluginDrainHttpServer({ httpServer:_httpServer })],
-        //     });
-        //     await server.start();
-        //     this.app.use(expressMiddleware(server))
-        // }
     }
 
 
