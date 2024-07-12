@@ -5,9 +5,22 @@ services:
     image: image-name
     deploy:
       replicas: 1
+      update_config:
+        parallelism: 1 # Número de tareas que se actualizan en paralelo.
+        delay: 10s # Tiempo de espera entre actualizaciones de tareas.
+        failure_action: rollback # Acción a tomar en caso de fallo de actualización. Puede ser pause, continue o rollback. rollback es la opción que revertirá los cambios en caso de falla
+        monitor: 10s #Tiempo durante el cual Docker monitorea cada tarea después de la actualización para asegurarse de que esté funcionando correctamente
+        max_failure_ratio: 0.1 # Proporción máxima de fallos tolerables durante la actualización antes de que se considere una falla
+      rollback_config:
+        parallelism: 1
+        delay: 10s
       resources:
-        limits:
-          memory: 300M
+        limits: # Define el máximo de recursos que un contenedor puede usar. Si el contenedor intenta usar más recursos de los definidos aquí, Docker limitará su uso.
+          cpus: '0.5'  # Limitar a 0.5 cores
+          memory: 300M # Limitar a 512MB de RAM
+        reservations: # Define la cantidad mínima de recursos que Docker intentará garantizar para este contenedor. Si no hay suficientes recursos disponibles, Docker Swarm no programará el contenedor
+          cpus: '0.25'       # Reservar 0.25 cores
+          memory: 256M       # Reservar 256MB de RAM
     env_file:
       - env-file
     environment:
